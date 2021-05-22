@@ -10,7 +10,38 @@
     
 	<atom:link href="https://denihida1216.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-    
+    <item>
+      <title>Deni Hidayat | Post</title>
+      <link>https://denihida1216.github.io/post/</link>
+      <pubDate>Sat, 22 May 2021 15:28:15 +0700</pubDate>
+      <guid>https://denihida1216.github.io/post/</guid>
+      <description>Post</description>
+    </item>
+
+    <item>
+      <title>Deni Hidayat | Portofolio</title>
+      <link>https://denihida1216.github.io/portofolio/</link>
+      <pubDate>Sat, 22 May 2021 15:28:15 +0700</pubDate>
+      <guid>https://denihida1216.github.io/portofolio/</guid>
+      <description>Portofolio</description>
+    </item>
+
+    <item>
+      <title>Deni Hidayat | About</title>
+      <link>https://denihida1216.github.io/about/</link>
+      <pubDate>Sat, 22 May 2021 15:28:15 +0700</pubDate>
+      <guid>https://denihida1216.github.io/about/</guid>
+      <description>About</description>
+    </item>
+
+    <item>
+      <title>Deni Hidayat | Privacy Policy</title>
+      <link>https://denihida1216.github.io/privacy-policy/</link>
+      <pubDate>Sat, 22 May 2021 15:28:15 +0700</pubDate>
+      <guid>https://denihida1216.github.io/privacy-policy/</guid>
+      <description>Privacy Policy</description>
+    </item>
+
     <item>
       <title>Tutorial PHP Desktop</title>
       <link>https://denihida1216.github.io/post/tutorial-php-desktop/</link>
