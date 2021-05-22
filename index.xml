@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Website of Deni Hidayat</title>
+    <link>https://denihida1216.github.io/</link>
+    <description>Recent content on Website of Deni Hidayat</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>id-id</language>
+    <lastBuildDate>Sat, 22 May 2021 15:28:15 +0700</lastBuildDate>
+    
+	<atom:link href="https://denihida1216.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tutorial PHP Desktop</title>
+      <link>https://denihida1216.github.io/post/tutorial-php-desktop/</link>
+      <pubDate>Sat, 22 May 2021 15:28:15 +0700</pubDate>
+      <guid>https://denihida1216.github.io/post/tutorial-php-desktop/</guid>
+      <description>Tutorial PHP Desktop</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,1 +1,1 @@
-# denihida1216.github.io/web
+# denihida1216.github.io
