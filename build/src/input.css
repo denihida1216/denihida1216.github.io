@@ -1,3 +1,32 @@
+/* ------------------------------------------------------------------ *
+ * Font lokal. Digabung ke sini (bukan berkas terpisah) supaya halaman
+ * hanya punya SATU stylesheet render-blocking, bukan dua.
+ * ------------------------------------------------------------------ */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('../fonts/SpaceGrotesk-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/Inter-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('../fonts/JetBrainsMono-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -84,9 +113,38 @@
     @apply font-mono text-[0.7rem] uppercase tracking-[0.28em] text-accent sm:text-xs;
   }
 
+  /* Padding vertikal section — satu sumber, bukan diulang per section. */
+  .section {
+    @apply relative py-12 sm:py-16 lg:py-24;
+  }
+
+  /* Lapisan dekoratif di belakang konten (grid, glow, kanvas asap). */
+  .deco {
+    @apply pointer-events-none absolute inset-0 -z-10;
+  }
+
   .section-title {
-    @apply font-display font-bold leading-[1.15] tracking-tight;
+    @apply mt-3 font-display font-bold leading-[1.15] tracking-tight sm:mt-4;
     font-size: clamp(1.85rem, 1.2rem + 2.4vw, 3rem);
+  }
+
+  /* Judul & isi kartu — dipakai kartu "Cara kerja". */
+  .card-title {
+    @apply font-display text-lg font-bold;
+  }
+
+  .card-text {
+    @apply mt-3 text-[0.95rem] leading-relaxed text-muted;
+  }
+
+  /* Tautan di menu dropdown ponsel. */
+  .menu-link {
+    @apply block rounded-xl px-4 py-3 text-sm text-muted;
+    transition: color 180ms ease, background-color 180ms ease;
+  }
+
+  .menu-link:hover {
+    @apply bg-bg-soft text-text;
   }
 
   .lede {
@@ -251,6 +309,11 @@
 }
 
 @layer utilities {
+  /* Gradien merek — dipakai logo navbar dan cincin foto. */
+  .bg-brand {
+    background: linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-2)));
+  }
+
   .text-gradient {
     background: linear-gradient(120deg, rgb(var(--accent)), rgb(var(--accent-2)));
     -webkit-background-clip: text;

@@ -6,8 +6,12 @@
 <title>Deni Hidayat — Fullstack Developer &amp; Infrastructure Engineer</title>
 <meta name="description" content="Portfolio of Deni Hidayat — a fullstack developer (web &amp; mobile) who also handles servers, Docker, and application security. From code to production.">
 <meta name="author" content="Deni Hidayat">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="google-site-verification" content="7cioTPBHH5xs5uj-5mH_S4ZU183a3bnICczAwka-W1w">
 <link rel="canonical" href="https://denihida1216.github.io/">
+<link rel="me" href="https://github.com/denihida1216">
+<link rel="me" href="https://www.linkedin.com/in/denihida1216">
+<link rel="me" href="mailto:denihida1216@gmail.com">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
@@ -33,7 +37,7 @@
 <link rel="icon" type="image/webp" sizes="180x180" href="assets/img/favicon-180.webp">
 <link rel="preload" href="assets/fonts/SpaceGrotesk-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="preload" href="assets/fonts/JetBrainsMono-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
 
 <script>
@@ -173,7 +177,7 @@
     <nav class="mt-3 flex items-center justify-between rounded-2xl border border-transparent px-3 py-2 transition-all duration-300" id="nav-shell" aria-label="Navigasi utama">
 
       <a href="#beranda" class="group flex items-center gap-2.5 rounded-xl px-2 py-1">
-        <span class="rounded-full p-[1.5px]" style="background:linear-gradient(135deg,rgb(var(--accent)),rgb(var(--accent-2)))">
+        <span class="rounded-full p-[1.5px] bg-brand">
           <img src="assets/img/avatar-96.webp" width="96" height="96" alt=""
                class="block h-9 w-9 rounded-full border-2 border-bg object-cover">
         </span>
@@ -211,10 +215,10 @@
     </nav>
 
     <div id="mobile-menu" class="mt-2 hidden overflow-hidden rounded-2xl border border-line bg-surface/95 p-2 backdrop-blur-xl md:hidden">
-      <a href="#tentang" class="block rounded-xl px-4 py-3 text-sm text-muted hover:bg-bg-soft hover:text-text" data-i18n="nav.about">About</a>
-      <a href="#keahlian" class="block rounded-xl px-4 py-3 text-sm text-muted hover:bg-bg-soft hover:text-text" data-i18n="nav.skills">Skills</a>
-      <a href="#cara-kerja" class="block rounded-xl px-4 py-3 text-sm text-muted hover:bg-bg-soft hover:text-text" data-i18n="nav.work">How I work</a>
-      <a href="#kontak" class="block rounded-xl px-4 py-3 text-sm text-muted hover:bg-bg-soft hover:text-text" data-i18n="nav.contact">Contact</a>
+      <a href="#tentang" class="menu-link" data-i18n="nav.about">About</a>
+      <a href="#keahlian" class="menu-link" data-i18n="nav.skills">Skills</a>
+      <a href="#cara-kerja" class="menu-link" data-i18n="nav.work">How I work</a>
+      <a href="#kontak" class="menu-link" data-i18n="nav.contact">Contact</a>
     </div>
   </div>
 </header>
@@ -225,7 +229,7 @@
 <section id="beranda" class="relative flex min-h-[100svh] items-center overflow-hidden pb-16 pt-24 sm:pb-20 sm:pt-28">
 
   <!-- Lapisan parallax: bergerak pelan mengikuti scroll & kursor. -->
-  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+  <div class="deco" aria-hidden="true">
     <div class="absolute inset-0 grid-bg mask-fade opacity-70" data-parallax="0.14"></div>
     <canvas id="smoke" class="absolute inset-0 h-full w-full"></canvas>
     <div class="absolute -left-24 top-10 h-[26rem] w-[26rem] rounded-full blur-3xl animate-drift"
@@ -274,8 +278,7 @@
              data-parallax="0.16" data-parallax-mouse="-14">
           <div class="pointer-events-none absolute -inset-5 rounded-full blur-2xl lg:-inset-8"
                style="background:radial-gradient(circle,rgb(var(--glow-1)),transparent 70%)" aria-hidden="true"></div>
-          <div class="relative rounded-full p-[3px] lg:animate-float"
-               style="background:linear-gradient(135deg,rgb(var(--accent)),rgb(var(--accent-2)))">
+          <div class="relative rounded-full p-[3px] lg:animate-float bg-brand">
             <img src="assets/img/profil.webp" width="460" height="460" fetchpriority="high"
                  class="block w-full rounded-full border-4 border-bg object-cover"
                  alt="Photo of Deni Hidayat" data-i18n="hero.photoAlt" data-i18n-attr="alt">
@@ -288,13 +291,13 @@
 </section>
 
 <!-- ============================ TENTANG =========================== -->
-<section id="tentang" class="relative py-12 sm:py-16 lg:py-24">
+<section id="tentang" class="section">
   <div class="shell">
     <div class="grid gap-8 sm:gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
 
       <div>
         <p class="eyebrow reveal" data-i18n="about.eyebrow">About</p>
-        <h2 class="section-title reveal mt-3 sm:mt-4" data-i18n="about.title">One whole job</h2>
+        <h2 class="section-title reveal" data-i18n="about.title">One whole job</h2>
         <div class="reveal mt-5 h-1 w-16 rounded-full" style="background:linear-gradient(90deg,rgb(var(--accent)),rgb(var(--accent-2)))"></div>
 
         <!-- Kartu terminal: dekoratif, ikut parallax kursor. -->
@@ -336,8 +339,8 @@
 </section>
 
 <!-- =========================== KEAHLIAN =========================== -->
-<section id="keahlian" class="relative overflow-hidden py-12 sm:py-16 lg:py-24">
-  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+<section id="keahlian" class="section overflow-hidden">
+  <div class="deco" aria-hidden="true">
     <div class="absolute left-1/2 top-1/4 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full blur-3xl"
          style="background:radial-gradient(circle,rgb(var(--glow-2)),transparent 70%)"
          data-parallax="0.16"></div>
@@ -346,7 +349,7 @@
   <div class="shell">
     <header class="mx-auto max-w-3xl text-center">
       <p class="eyebrow reveal" data-i18n="skills.eyebrow">Skills</p>
-      <h2 class="section-title reveal mt-3 sm:mt-4" data-i18n="skills.title">Three things I do</h2>
+      <h2 class="section-title reveal" data-i18n="skills.title">Three things I do</h2>
       <p class="lede reveal mx-auto mt-4 max-w-2xl sm:mt-5" data-i18n="skills.sub">
         Fullstack development, servers &amp; infrastructure, and application security — the combination of all three is what lets me carry an application from an empty repository to running in production.
       </p>
@@ -454,11 +457,11 @@
 
 
 <!-- ========================== CARA KERJA ========================== -->
-<section id="cara-kerja" class="relative py-12 sm:py-16 lg:py-24">
+<section id="cara-kerja" class="section">
   <div class="shell">
     <header class="max-w-2xl">
       <p class="eyebrow reveal" data-i18n="work.eyebrow">How I work</p>
-      <h2 class="section-title reveal mt-3 sm:mt-4" data-i18n="work.title">How I work</h2>
+      <h2 class="section-title reveal" data-i18n="work.title">How I work</h2>
       <p class="lede reveal mt-4 sm:mt-5" data-i18n="work.sub">
         Four things you can expect from me, on any project.
       </p>
@@ -466,20 +469,20 @@
 
     <ol class="mt-9 grid gap-4 sm:mt-11 sm:gap-6 sm:grid-cols-2">
       <li class="card reveal">
-        <h3 class="font-display text-lg font-bold" data-i18n="work.i1.title">Clear communication</h3>
-        <p class="mt-3 text-[0.95rem] leading-relaxed text-muted" data-i18n="work.i1.desc">Good news or bad, you hear it from me early — not at the last minute.</p>
+        <h3 class="card-title" data-i18n="work.i1.title">Clear communication</h3>
+        <p class="card-text" data-i18n="work.i1.desc">Good news or bad, you hear it from me early — not at the last minute.</p>
       </li>
       <li class="card reveal">
-        <h3 class="font-display text-lg font-bold" data-i18n="work.i2.title">Calm under pressure</h3>
-        <p class="mt-3 text-[0.95rem] leading-relaxed text-muted" data-i18n="work.i2.desc">I meet production incidents and tight deadlines with measured steps, not panic.</p>
+        <h3 class="card-title" data-i18n="work.i2.title">Calm under pressure</h3>
+        <p class="card-text" data-i18n="work.i2.desc">I meet production incidents and tight deadlines with measured steps, not panic.</p>
       </li>
       <li class="card reveal">
-        <h3 class="font-display text-lg font-bold" data-i18n="work.i3.title">Ownership, end to end</h3>
-        <p class="mt-3 text-[0.95rem] leading-relaxed text-muted" data-i18n="work.i3.desc">Done means running in production — secure, monitored, and documented.</p>
+        <h3 class="card-title" data-i18n="work.i3.title">Ownership, end to end</h3>
+        <p class="card-text" data-i18n="work.i3.desc">Done means running in production — secure, monitored, and documented.</p>
       </li>
       <li class="card reveal">
-        <h3 class="font-display text-lg font-bold" data-i18n="work.i4.title">Secure by default</h3>
-        <p class="mt-3 text-[0.95rem] leading-relaxed text-muted" data-i18n="work.i4.desc">I think about security at design time, not after something breaks.</p>
+        <h3 class="card-title" data-i18n="work.i4.title">Secure by default</h3>
+        <p class="card-text" data-i18n="work.i4.desc">I think about security at design time, not after something breaks.</p>
       </li>
     </ol>
   </div>
@@ -487,7 +490,7 @@
 
 <!-- ============================ KONTAK ============================ -->
 <section id="kontak" class="relative overflow-hidden py-14 sm:py-20 lg:py-28">
-  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+  <div class="deco" aria-hidden="true">
     <div class="absolute inset-0 grid-bg mask-fade opacity-50" data-parallax="0.1"></div>
     <div class="absolute left-1/2 top-1/2 h-[28rem] w-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
          style="background:radial-gradient(ellipse,rgb(var(--glow-1)),transparent 70%)" data-parallax="0.22"></div>
@@ -495,7 +498,7 @@
 
   <div class="shell text-center">
     <p class="eyebrow reveal" data-i18n="contact.eyebrow">Contact</p>
-    <h2 class="section-title reveal mx-auto mt-3 max-w-2xl sm:mt-4" data-i18n="contact.title">Let's work together</h2>
+    <h2 class="section-title reveal mx-auto max-w-2xl" data-i18n="contact.title">Let's work together</h2>
     <p class="lede reveal mx-auto mt-4 max-w-xl sm:mt-6" data-i18n="contact.text">
       Have a project or a role that needs someone dependable? Tell me what you need — I'll reply as fast as I can.
     </p>

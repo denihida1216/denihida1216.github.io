@@ -268,6 +268,62 @@ def main() -> int:
         check(f"Teknologi disebut: {kw}", kw.lower() in html.lower())
     check("Teknologi disebut: Go/Golang", bool(re.search(r"\bGo(lang)?\b", html)))
 
+    # --- Kesehatan struktur HTML --------------------------------------------
+    # Menyunting markup dengan cari-ganti gampang menghasilkan dua atribut
+    # yang sama pada satu elemen (mis. dua `class`). Browser diam saja dan
+    # memakai yang pertama, jadi kesalahannya tidak kelihatan.
+    from html.parser import HTMLParser
+
+    class _Struktur(HTMLParser):
+        VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+                "link", "meta", "source", "track", "wbr"}
+
+        def __init__(self) -> None:
+            super().__init__()
+            self.duplikat: list[str] = []
+            self.tumpuk: list[str] = []
+            self.salah_tutup: list[str] = []
+
+        def handle_starttag(self, tag, attrs):
+            nama = [a for a, _ in attrs]
+            for a in sorted(set(nama)):
+                if nama.count(a) > 1:
+                    self.duplikat.append(f"<{tag} {a}=… x{nama.count(a)}>")
+            if tag not in self.VOID:
+                self.tumpuk.append(tag)
+
+        def handle_endtag(self, tag):
+            if self.tumpuk and self.tumpuk[-1] == tag:
+                self.tumpuk.pop()
+            elif tag in self.tumpuk:
+                while self.tumpuk and self.tumpuk[-1] != tag:
+                    self.salah_tutup.append(self.tumpuk.pop())
+                self.tumpuk.pop()
+
+    _s = _Struktur()
+    _s.feed(html)
+    check(
+        "Tidak ada elemen dengan atribut kembar",
+        not _s.duplikat,
+        f"{_s.duplikat[:4]} — browser hanya memakai yang pertama",
+    )
+    check(
+        "Semua tag tertutup dan bersarang benar",
+        not _s.salah_tutup and not _s.tumpuk,
+        f"tidak tertutup: {(_s.salah_tutup + _s.tumpuk)[:5]}",
+    )
+    css_links = re.findall(r'<link[^>]+rel="stylesheet"', html)
+    check(
+        f"Hanya satu stylesheet render-blocking ({len(css_links)})",
+        len(css_links) <= 1,
+        "gabungkan CSS jadi satu berkas agar tidak menahan render dua kali",
+    )
+    check(
+        "Meta robots mengizinkan pratinjau gambar besar",
+        "max-image-preview:large" in html,
+        "tanpa ini Google memakai thumbnail kecil di hasil pencarian",
+    )
+
     # --- Gambar -------------------------------------------------------------
     imgs = re.findall(r"<img\b[^>]*>", html, re.I)
     check("Ada gambar di halaman", bool(imgs))
