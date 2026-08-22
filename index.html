@@ -58,22 +58,72 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Deni Hidayat",
-  "jobTitle": "Fullstack Developer & Infrastructure Engineer",
-  "url": "https://denihida1216.github.io/",
-  "image": "https://denihida1216.github.io/assets/img/profil.webp",
-  "email": "mailto:denihida1216@gmail.com",
-  "knowsLanguage": ["id", "en"],
-  "knowsAbout": [
-    "JavaScript", "TypeScript", "Go", "PHP", "Dart", "Pascal",
-    "MySQL", "PostgreSQL", "SQL Server", "Redis", "RabbitMQ",
-    "Ubuntu", "Debian", "Docker", "Proxmox",
-    "Cloudflare", "WAF", "Nginx", "PHP-FPM", "Firewall"
-  ],
-  "sameAs": [
-    "https://github.com/denihida1216",
-    "https://www.linkedin.com/in/denihida1216"
+  "@graph": [
+    {
+      "@type": "Person",
+      "name": "Deni Hidayat",
+      "jobTitle": "Fullstack Developer & Infrastructure Engineer",
+      "url": "https://denihida1216.github.io/",
+      "image": "https://denihida1216.github.io/assets/img/profil.webp",
+      "email": "mailto:denihida1216@gmail.com",
+      "knowsLanguage": [
+        "id",
+        "en"
+      ],
+      "knowsAbout": [
+        "JavaScript",
+        "TypeScript",
+        "Go",
+        "PHP",
+        "Dart",
+        "Pascal",
+        "MySQL",
+        "PostgreSQL",
+        "SQL Server",
+        "Redis",
+        "RabbitMQ",
+        "Ubuntu",
+        "Debian",
+        "Docker",
+        "Proxmox",
+        "Cloudflare",
+        "WAF",
+        "Nginx",
+        "PHP-FPM",
+        "Firewall"
+      ],
+      "sameAs": [
+        "https://github.com/denihida1216",
+        "https://www.linkedin.com/in/denihida1216"
+      ],
+      "@id": "https://denihida1216.github.io/#deni"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://denihida1216.github.io/#situs",
+      "url": "https://denihida1216.github.io/",
+      "name": "Deni Hidayat",
+      "inLanguage": [
+        "id-ID",
+        "en-US"
+      ],
+      "publisher": {
+        "@id": "https://denihida1216.github.io/#deni"
+      }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://denihida1216.github.io/#halaman",
+      "url": "https://denihida1216.github.io/",
+      "name": "Deni Hidayat — Fullstack Developer & Infrastructure Engineer",
+      "isPartOf": {
+        "@id": "https://denihida1216.github.io/#situs"
+      },
+      "about": {
+        "@id": "https://denihida1216.github.io/#deni"
+      },
+      "primaryImageOfPage": "https://denihida1216.github.io/assets/img/og-cover.webp"
+    }
   ]
 }
 </script>
