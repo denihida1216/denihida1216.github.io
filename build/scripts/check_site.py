@@ -182,7 +182,11 @@ def main() -> int:
     # --- Struktur & aksesibilitas ------------------------------------------
     h1_count = len(re.findall(r"<h1[\s>]", html))
     check("Tepat satu <h1>", h1_count == 1, f"ditemukan {h1_count}")
-    check("Atribut lang di <html>", bool(re.search(r"<html[^>]*\blang=", html)))
+    check(
+        "Atribut lang di <html> = en (bahasa default)",
+        bool(re.search(r'<html[^>]*\blang="en"', html)),
+        "teks default di markup harus Bahasa Inggris",
+    )
     check("Meta viewport ada", 'name="viewport"' in html)
     for anchor in ("tentang", "keahlian", "cara-kerja", "kontak"):
         check(
@@ -258,8 +262,9 @@ def main() -> int:
         check(f"{f_} ada di root situs", (path.parent / f_).is_file())
 
     # --- Konten: 3 pilar & teknologi kunci ---------------------------------
-    for kw in ("TypeScript", "PHP", "Dart", "PostgreSQL", "Redis",
-               "RabbitMQ", "Docker", "Proxmox", "Cloudflare", "Nginx", "WAF"):
+    for kw in ("TypeScript", "Python", "Dart", "PostgreSQL", "Redis",
+               "RabbitMQ", "Docker", "Proxmox", "Cloudflare", "Nginx", "WAF",
+               "PHP-FPM"):
         check(f"Teknologi disebut: {kw}", kw.lower() in html.lower())
     check("Teknologi disebut: Go/Golang", bool(re.search(r"\bGo(lang)?\b", html)))
 

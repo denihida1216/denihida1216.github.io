@@ -21,7 +21,7 @@
   }
 
   /* =================================================================
-   * 1. Bahasa — teks default di HTML adalah Bahasa Indonesia.
+   * 1. Bahasa — teks default di HTML adalah Bahasa Inggris.
    * ================================================================= */
   var YEAR = new Date().getFullYear();
 
@@ -147,7 +147,7 @@
   var metaDesc = document.querySelector('meta[name="description"]');
 
   function currentLang() {
-    return root.getAttribute('lang') === 'en' ? 'en' : 'id';
+    return root.getAttribute('lang') === 'id' ? 'id' : 'en';
   }
 
   function applyLang(lang) {
@@ -516,7 +516,7 @@
   /* =================================================================
    * 7. Jalankan
    * ================================================================= */
-  applyLang(store('dh-lang') === 'en' ? 'en' : 'id');
+  applyLang(store('dh-lang') === 'id' ? 'id' : 'en');
   syncThemeLabel();
   measureLayers();
   jumpToHash();

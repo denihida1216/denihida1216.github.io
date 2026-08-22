@@ -69,16 +69,17 @@ ok('tidak ada error console/page', errs.length === 0, errs.join(' | '));
 ok('pustaka animasi termuat', await p.evaluate(() => typeof window.anime === 'function'));
 
 // --- bahasa -----------------------------------------------------------------
-ok('hero default Bahasa Indonesia', /Halo, saya/.test(await p.locator('h1').innerText()));
-ok('lang=id', (await p.evaluate(() => document.documentElement.lang)) === 'id');
+ok('hero default Bahasa Inggris', /Hi, I'm/.test(await p.locator('h1').innerText()));
+ok('lang=en', (await p.evaluate(() => document.documentElement.lang)) === 'en');
+ok('navbar default EN', (await p.locator('#nav-links a').first().innerText()) === 'About');
 
 await p.click('#lang-toggle'); await p.waitForTimeout(250);
-ok('toggle EN mengubah hero', /Hi, I'm/.test(await p.locator('h1').innerText()));
-ok('lang=en', (await p.evaluate(() => document.documentElement.lang)) === 'en');
-ok('navbar ikut EN', (await p.locator('#nav-links a').first().innerText()) === 'About');
-ok('pilihan bahasa tersimpan', (await p.evaluate(() => localStorage.getItem('dh-lang'))) === 'en');
+ok('toggle ID mengubah hero', /Halo, saya/.test(await p.locator('h1').innerText()));
+ok('lang=id', (await p.evaluate(() => document.documentElement.lang)) === 'id');
+ok('navbar ikut ID', (await p.locator('#nav-links a').first().innerText()) === 'Tentang');
+ok('pilihan bahasa tersimpan', (await p.evaluate(() => localStorage.getItem('dh-lang'))) === 'id');
 await p.click('#lang-toggle'); await p.waitForTimeout(200);
-ok('toggle balik ke ID', /Halo, saya/.test(await p.locator('h1').innerText()));
+ok('toggle balik ke EN', /Hi, I'm/.test(await p.locator('h1').innerText()));
 
 // --- tema -------------------------------------------------------------------
 const th1 = await p.evaluate(() => document.documentElement.getAttribute('data-theme'));
@@ -151,7 +152,7 @@ ok('parallax tidak menempel di elemen .reveal',
   await p.evaluate(() => !document.querySelector('.reveal[data-parallax], .reveal[data-parallax-mouse]')),
   'pindahkan data-parallax ke elemen di dalam .reveal');
 await p.click('#lang-toggle'); await p.waitForTimeout(250);
-ok('alt foto ikut ganti bahasa', await p.evaluate(() => /Photo of/.test(document.querySelector('#beranda img').alt)));
+ok('alt foto ikut ganti bahasa', await p.evaluate(() => /Foto Deni/.test(document.querySelector('#beranda img').alt)));
 await p.click('#lang-toggle'); await p.waitForTimeout(250);
 
 const fav = await p.evaluate(() => {
@@ -325,13 +326,16 @@ for (const w of [360, 414, 768, 1024, 1440]) {
       const rows = {};
       li.forEach((x) => { const t = Math.round(x.getBoundingClientRect().top); rows[t] = (rows[t] || 0) + 1; });
       return {
-        perBaris: [...new Set(Object.values(rows))],
+        perBaris: Object.values(rows),
         labelTampil: getComputedStyle(document.querySelector('.badge-label')).display !== 'none',
         ikonPx: Math.round(li[0].querySelector('img').getBoundingClientRect().width),
       };
     });
+    // Baris terakhir boleh kurang dari 4 — jumlah teknologi tidak selalu
+    // habis dibagi 4. Yang penting tidak ada baris penuh yang meleset.
     ok('ponsel: 4 kartu teknologi per baris',
-      mob.perBaris.length === 1 && mob.perBaris[0] === 4, JSON.stringify(mob.perBaris));
+      mob.perBaris.slice(0, -1).every((n) => n === 4) && mob.perBaris[mob.perBaris.length - 1] <= 4,
+      JSON.stringify(mob.perBaris));
     ok('ponsel: kartu teknologi hanya logo, nama disembunyikan', mob.labelTampil === false);
     ok('ponsel: logo tetap 40px', mob.ikonPx === 40, String(mob.ikonPx));
 
@@ -446,7 +450,7 @@ await hp.click('#lang-toggle');
 await hp.waitForTimeout(250);
 ok('label tombol ke atas ikut ganti bahasa', await hp.evaluate(() => {
   const t = document.getElementById('to-top');
-  return /Back to top/.test(t.getAttribute('aria-label')) && t.getAttribute('title') === t.getAttribute('aria-label');
+  return /Kembali ke atas/.test(t.getAttribute('aria-label')) && t.getAttribute('title') === t.getAttribute('aria-label');
 }));
 await hp.close();
 
