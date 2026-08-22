@@ -1,0 +1,304 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ *
+ * Token warna. Semua warna halaman lewat variabel ini supaya tema
+ * terang & gelap tetap satu sistem, bukan dua desain berbeda.
+ * ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    --bg: 248 250 252;
+    --bg-soft: 241 245 249;
+    --surface: 255 255 255;
+    --text: 15 23 42;
+    --muted: 71 85 105;
+    --accent: 2 132 199;
+    --accent-2: 79 70 229;
+    --line: 15 23 42 / 0.10;
+    --glow-1: 2 132 199 / 0.18;
+    --glow-2: 79 70 229 / 0.14;
+    --shadow: 15 23 42 / 0.08;
+  }
+
+  [data-theme='dark'] {
+    --bg: 11 18 32;
+    --bg-soft: 17 27 48;
+    /* Permukaan sengaja diangkat dari #111a2e: dengan nilai lama, kontras
+       kartu terhadap latar hanya 1.08 — batas kartu praktis cuma berasal
+       dari border, dan garis terang tipis di atas latar gelap jauh lebih
+       lemah daripada garis gelap tipis di atas latar terang. */
+    --surface: 30 42 73;
+    --text: 226 232 240;
+    --muted: 148 163 184;
+    --accent: 56 189 248;
+    --accent-2: 129 140 248;
+    --line: 226 232 240 / 0.2;
+    --glow-1: 56 189 248 / 0.20;
+    --glow-2: 129 140 248 / 0.16;
+    --shadow: 0 0 0 / 0.45;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+    font-feature-settings: 'cv02', 'cv03', 'cv04';
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgb(var(--accent) / 0.28);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Gambar tidak bisa diseret keluar halaman (pelengkap blokir klik
+     kanan di app.js — penghalang ringan, bukan pengaman). */
+  img {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+
+  /* Scrollbar ikut tema, jangan putih menyala di mode gelap. */
+  * {
+    scrollbar-color: rgb(var(--accent) / 0.45) transparent;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[0.7rem] uppercase tracking-[0.28em] text-accent sm:text-xs;
+  }
+
+  .section-title {
+    @apply font-display font-bold leading-[1.15] tracking-tight;
+    font-size: clamp(1.85rem, 1.2rem + 2.4vw, 3rem);
+  }
+
+  .lede {
+    @apply text-balance text-muted;
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  }
+
+  .card {
+    @apply relative overflow-hidden rounded-2xl border border-line bg-surface/80 p-6 backdrop-blur-sm sm:p-7;
+    box-shadow: 0 1px 2px rgb(var(--shadow)), 0 12px 32px -24px rgb(var(--shadow));
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  }
+
+  /* Garis aksen gradien yang menyala saat kartu disentuh. */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent-2)));
+    opacity: 0;
+    transition: opacity 220ms ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgb(var(--accent) / 0.35);
+    box-shadow: 0 1px 2px rgb(var(--shadow)), 0 24px 48px -28px rgb(var(--glow-1));
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  /* Kartu teknologi: logo + nama, disusun grid (2 kolom di ponsel,
+     5 di desktop). Nama ditampilkan supaya logo yang kurang dikenal
+     tetap jelas maksudnya, bukan cuma lewat tooltip. */
+  /* Di ponsel kartunya hanya berisi logo — namanya disembunyikan supaya
+     empat kartu muat sebaris tanpa mengecilkan logonya. Nama tetap ada
+     di DOM (dan di `alt` gambar), jadi screen reader tidak kehilangan
+     apa pun. */
+  .badge {
+    @apply flex shrink-0 items-center justify-center gap-2.5 rounded-xl border border-line p-2 sm:justify-start sm:gap-3 sm:p-3;
+    background-color: rgb(var(--surface));
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .badge:hover {
+    transform: translateY(-2px);
+    border-color: rgb(var(--accent) / 0.5);
+    box-shadow: 0 10px 22px -14px rgb(var(--glow-1));
+  }
+
+  .badge-icon {
+    @apply h-10 w-10 shrink-0 object-contain;
+  }
+
+  .badge-label {
+    @apply hidden whitespace-nowrap font-mono text-muted sm:inline sm:text-xs;
+  }
+
+  /* Sebagian logo resmi berwarna gelap (MySQL, PostgreSQL, Debian, PHP)
+     dan tenggelam di tile gelap. Yang ditandai .badge-boost dicerahkan
+     hanya di tema gelap — warna mereknya tetap terbaca, tidak diubah
+     jadi monokrom. */
+  [data-theme='dark'] .badge-boost {
+    filter: brightness(1.85) saturate(1.1);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-medium;
+    transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease,
+      border-color 180ms ease, color 180ms ease;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-2)));
+    @apply text-white;
+    box-shadow: 0 10px 30px -12px rgb(var(--glow-1));
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 16px 38px -12px rgb(var(--glow-1));
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    @apply border border-line text-text;
+  }
+
+  .btn-ghost:hover {
+    @apply border-accent/45;
+    background-color: rgb(var(--accent) / 0.08);
+    transform: translateY(-2px);
+  }
+
+  .nav-link {
+    @apply relative rounded-lg px-3 py-2 text-sm text-muted;
+    transition: color 180ms ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.35rem;
+    height: 1.5px;
+    background: linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent-2)));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms ease;
+  }
+
+  .nav-link:hover,
+  .nav-link[aria-current='true'] {
+    @apply text-text;
+  }
+
+  .nav-link:hover::after,
+  .nav-link[aria-current='true']::after {
+    transform: scaleX(1);
+  }
+
+  /* Tombol bahasa/tema/menu: polos, tanpa kotak — hanya warnanya yang
+     berubah saat disentuh, supaya topbar tetap ringan. */
+  /* Tombol kembali ke atas: muncul setelah hero terlewat. */
+  .to-top {
+    @apply fixed bottom-5 right-5 z-40 grid h-11 w-11 place-items-center rounded-xl border border-line text-muted sm:bottom-7 sm:right-7;
+    background-color: rgb(var(--surface) / 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px -16px rgb(var(--shadow));
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: opacity 220ms ease, transform 220ms ease, color 180ms ease, border-color 180ms ease;
+  }
+
+  .to-top.is-visible {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .to-top:hover {
+    @apply border-accent/45 text-accent;
+  }
+
+  .icon-btn {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-xl text-muted;
+    transition: color 180ms ease;
+  }
+
+  .icon-btn:hover {
+    @apply text-accent;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(120deg, rgb(var(--accent)), rgb(var(--accent-2)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Elemen yang di-reveal: disembunyikan hanya kalau JS aktif, supaya
+     tanpa JS halaman tetap terbaca penuh. */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  .grid-bg {
+    background-image: linear-gradient(rgb(var(--line)) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--line)) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .mask-fade {
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 40%, transparent 100%);
+  }
+}
+
+/* Aksesibilitas: kalau pengguna minta gerak dikurangi, semua animasi mati
+   dan elemen langsung tampil pada posisi akhirnya. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  [data-parallax],
+  [data-parallax-mouse] {
+    transform: none !important;
+  }
+}

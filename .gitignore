@@ -1,0 +1,13 @@
+# Dependency toolchain — dipasang ulang dengan `npm install` di build/
+node_modules/
+
+# Catatan kerja & konfigurasi Claude Code. Sengaja tidak di-commit:
+# GitHub Pages menyajikan SELURUH isi repo, jadi apa pun di sini akan
+# bisa dibuka publik lewat URL.
+.claude/
+
+# Sisa-sisa lokal
+.DS_Store
+Thumbs.db
+*.log
+*.tmp

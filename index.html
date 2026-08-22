@@ -1,286 +1,467 @@
-<!DOCTYPE html>
-<html lang="id" data-theme="light">
-
+<!doctype html>
+<html lang="id" data-theme="dark">
 <head>
-  <title> Deni Hidayat | Website of Deni Hidayat </title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="description" content="Deni Hidayat Full Stack Developer">
-  <meta property="og:url" content="https://denihida1216.github.io/">
-  <meta property="og:title" content="Ideas, Learning, Focus, Blog, Reliable">
-  <meta property="og:description" content="Deni Hidayat Full Stack Developer">
-  <meta property="og:image" content="https://denihida1216.github.io/images/preview.png">
-  <meta property="og:site_name" content="Deni Hidayat">
-  <meta property="og:ttl" content="3600">
-  <meta name="google-site-verification" content="7cioTPBHH5xs5uj-5mH_S4ZU183a3bnICczAwka-W1w" />
-  <meta name="generator" content="Hugo 0.83.1" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <link rel="stylesheet"
-    href="https://denihida1216.github.io/css/style.min.67cd718c0a3c8009c771494d381fb7128246a454bd0518fed97cb65d257db948.css"
-    integrity="sha256-Z81xjAo8gAnHcUlNOB&#43;3EoJGpFS9BRj&#43;2Xy2XSV9uUg=" crossorigin="anonymous" type="text/css">
-  <link rel="stylesheet" href="https://denihida1216.github.io/css/custom.css" type="text/css">
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link rel="shortcut icon" href="https://denihida1216.github.io/favicons/favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://denihida1216.github.io/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://denihida1216.github.io/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://denihida1216.github.io/favicons/favicon-16x16.png">
-  <link rel="manifest" href="https://denihida1216.github.io/favicons/site.webmanifest">
-  <link rel="mask-icon" href="https://denihida1216.github.io/favicons/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="application-name" content="Deni&nbsp;Hidayat" />
-  <meta name="msapplication-TileColor" content="#FFFFFF" />
-  <meta name="theme-color" content="#FFFFFF">
-  <link rel="canonical" href="https://denihida1216.github.io/">
-  <script type="text/javascript"
-    src="https://denihida1216.github.io/js/anatole-header.min.c275265a259296f3dd50e8236a77fcbcadb1dbb9597d3045c675dcc2c7c58a93.js"
-    integrity="sha256-wnUmWiWSlvPdUOgjanf8vK2x27lZfTBFxnXcwsfFipM=" crossorigin="anonymous"></script>
-  <script type="application/javascript">
-    var doNotTrack = false;
-    if (!doNotTrack) {
-      (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-          (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date(); a = s.createElement(o),
-          m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-      ga('create', 'UA-164557093-2', 'auto');
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deni Hidayat — Fullstack Developer &amp; Infrastructure Engineer</title>
+<meta name="description" content="Portofolio Deni Hidayat — fullstack developer (web &amp; mobile) yang juga menangani server, Docker, dan keamanan aplikasi. Dari kode sampai produksi.">
+<meta name="author" content="Deni Hidayat">
+<meta name="google-site-verification" content="7cioTPBHH5xs5uj-5mH_S4ZU183a3bnICczAwka-W1w">
+<link rel="canonical" href="https://denihida1216.github.io/">
+<meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 
-      ga('send', 'pageview');
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Deni Hidayat">
+<meta property="og:url" content="https://denihida1216.github.io/">
+<meta property="og:title" content="Deni Hidayat — Fullstack Developer &amp; Infrastructure Engineer">
+<meta property="og:description" content="Fullstack developer (web &amp; mobile) yang juga menangani server, Docker, dan keamanan aplikasi. Dari kode sampai produksi.">
+<meta property="og:locale" content="id_ID">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://denihida1216.github.io/assets/img/og-cover.webp">
+<meta property="og:image:type" content="image/webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Deni Hidayat — Fullstack Developer &amp; Infrastructure Engineer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Deni Hidayat — Fullstack Developer &amp; Infrastructure Engineer">
+<meta name="twitter:description" content="Dari baris kode pertama sampai server produksi yang aman dan stabil.">
+<meta name="twitter:image" content="https://denihida1216.github.io/assets/img/og-cover.webp">
+
+<link rel="icon" type="image/webp" sizes="32x32" href="assets/img/favicon-32.webp">
+<link rel="icon" type="image/webp" sizes="180x180" href="assets/img/favicon-180.webp">
+<link rel="preload" href="assets/fonts/SpaceGrotesk-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/site.css">
+
+<script>
+  /* Tema & bahasa dipulihkan sebelum paint supaya tidak ada kedip. */
+  (function () {
+    var root = document.documentElement;
+    root.classList.add('js');
+    try {
+      var t = localStorage.getItem('dh-theme');
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      root.setAttribute('data-theme', t);
+      var l = localStorage.getItem('dh-lang');
+      if (l === 'en') root.setAttribute('lang', 'en');
+    } catch (e) {
+      root.setAttribute('data-theme', 'dark');
     }
-  </script>
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Deni Hidayat",
+  "jobTitle": "Fullstack Developer & Infrastructure Engineer",
+  "url": "https://denihida1216.github.io/",
+  "image": "https://denihida1216.github.io/assets/img/profil.webp",
+  "email": "mailto:denihida1216@gmail.com",
+  "knowsLanguage": ["id", "en"],
+  "knowsAbout": [
+    "JavaScript", "TypeScript", "Go", "PHP", "Dart", "Pascal",
+    "MySQL", "PostgreSQL", "SQL Server", "Redis", "RabbitMQ",
+    "Ubuntu", "Debian", "Docker", "Proxmox",
+    "Cloudflare", "WAF", "Nginx", "PHP-FPM", "Firewall"
+  ],
+  "sameAs": [
+    "https://github.com/denihida1216",
+    "https://www.linkedin.com/in/denihida1216"
+  ]
+}
+</script>
 </head>
 
-<body>
-  <div class="sidebar animated fadeInDown">
-    <div class="logo-title">
-      <div class="title">
-        <img class="lazy" data-src="https://denihida1216.github.io/images/profil.jpg" alt="profile picture">
-        <h3 title=""><a href="/">Deni Hidayat</a></h3>
-        <div class="description">
-          <p>Full Stack Developer</p>
-        </div>
+<body class="font-sans antialiased">
+
+<a href="#tentang" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-surface focus:px-4 focus:py-2" data-i18n="a11y.skip">Lewati ke konten</a>
+
+<!-- ============================ NAVBAR ============================ -->
+<header class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+  <div class="shell">
+    <nav class="mt-3 flex items-center justify-between rounded-2xl border border-transparent px-3 py-2 transition-all duration-300" id="nav-shell" aria-label="Navigasi utama">
+
+      <a href="#beranda" class="group flex items-center gap-2.5 rounded-xl px-2 py-1">
+        <span class="rounded-full p-[1.5px]" style="background:linear-gradient(135deg,rgb(var(--accent)),rgb(var(--accent-2)))">
+          <img src="assets/img/avatar-96.webp" width="96" height="96" alt=""
+               class="block h-9 w-9 rounded-full border-2 border-bg object-cover">
+        </span>
+        <span class="font-display text-[0.95rem] font-bold tracking-tight">Deni Hidayat</span>
+      </a>
+
+      <div class="hidden items-center gap-1 md:flex" id="nav-links">
+        <a href="#tentang" class="nav-link" data-i18n="nav.about">Tentang</a>
+        <a href="#keahlian" class="nav-link" data-i18n="nav.skills">Keahlian</a>
+        <a href="#cara-kerja" class="nav-link" data-i18n="nav.work">Cara kerja</a>
+        <a href="#kontak" class="nav-link" data-i18n="nav.contact">Kontak</a>
       </div>
-    </div>
-    <ul class="social-links">
-      <li>
-        <a href="https://github.com/denihida1216" rel="me" target="_blank" aria-label="GitHub">
-          <i class="fa fa-2x fa-github" aria-hidden="true"></i>
-        </a>
-      </li>
-      <li>
-        <a href="mailto:denihida1216@gmail.com" rel="me" target="_blank" aria-label="e-mail">
-          <i class="fa fa-2x fa-envelope" aria-hidden="true"></i>
-        </a>
-      </li>
-      <li>
-        <a href="https://api.whatsapp.com/send?phone=6285721661555" rel="me" target="_blank" aria-label="whatsapp">
-          <i class="fa fa-2x fa-whatsapp" aria-hidden="true"></i>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.facebook.com/denihida1216" rel="me" target="_blank" aria-label="facebook">
-          <i class="fa fa-2x fa-facebook" aria-hidden="true"></i>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.instagram.com/denihida1216" rel="me" target="_blank" aria-label="instagram">
-          <i class="fa fa-2x fa-instagram" aria-hidden="true"></i>
-        </a>
-      </li>
-      <li>
-        <a href="https://id.linkedin.com/in/denihida1216" rel="me" target="_blank" aria-label="linkedin">
-          <i class="fa fa-2x fa-linkedin" aria-hidden="true"></i>
-        </a>
-      </li>
-    </ul>
-    <div class="footer">
-      <div class="by_farbox">&copy; Deni Hidayat 2020-
-        <script type="text/javascript">document.write(new Date().getFullYear());</script> &ndash; <a
-          href="/privacy-policy" class="text-secondary"> Privacy
-          Policy</a>
+
+      <div class="flex items-center gap-2">
+        <button id="lang-toggle" type="button" class="icon-btn w-auto px-3 font-mono text-xs font-medium"
+                aria-label="Ganti bahasa ke Inggris" title="Bahasa">
+          <span id="lang-label">EN</span>
+        </button>
+
+        <button id="theme-toggle" type="button" class="icon-btn" aria-label="Ganti ke tema terang" title="Tema">
+          <svg class="h-[18px] w-[18px]" id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+          </svg>
+          <svg class="hidden h-[18px] w-[18px]" id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+          </svg>
+        </button>
+
+        <button id="menu-toggle" type="button" class="icon-btn md:hidden" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
       </div>
+    </nav>
+
+    <div id="mobile-menu" class="mt-2 hidden overflow-hidden rounded-2xl border border-line bg-surface/95 p-2 backdrop-blur-xl md:hidden">
+      <a href="#tentang" class="block rounded-xl px-4 py-3 text-sm text-muted hover:bg-bg-soft hover:text-text" data-i18n="nav.about">Tentang</a>
+      <a href="#keahlian" class="block rounded-xl px-4 py-3 text-sm text-muted hover:bg-bg-soft hover:text-text" data-i18n="nav.skills">Keahlian</a>
+      <a href="#cara-kerja" class="block rounded-xl px-4 py-3 text-sm text-muted hover:bg-bg-soft hover:text-text" data-i18n="nav.work">Cara kerja</a>
+      <a href="#kontak" class="block rounded-xl px-4 py-3 text-sm text-muted hover:bg-bg-soft hover:text-text" data-i18n="nav.contact">Kontak</a>
     </div>
   </div>
-  <div class="main">
-    <div class="page-top animated fadeInDown">
-      <ul class="nav">
-        <li><a class="current" href="/" title="">Home</a></li>
-        <li><a href="/post/" title="">Posts</a></li>
-        <li><a href="/portofolio/" title="">Portofolio</a></li>
-        <li><a href="/about/" title="">About</a></li>
+</header>
+
+<main>
+
+<!-- ============================= HERO ============================= -->
+<section id="beranda" class="relative flex min-h-[100svh] items-center overflow-hidden pb-16 pt-24 sm:pb-20 sm:pt-28">
+
+  <!-- Lapisan parallax: bergerak pelan mengikuti scroll & kursor. -->
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute inset-0 grid-bg mask-fade opacity-70" data-parallax="0.14"></div>
+    <canvas id="smoke" class="absolute inset-0 h-full w-full"></canvas>
+    <div class="absolute -left-24 top-10 h-[26rem] w-[26rem] rounded-full blur-3xl animate-drift"
+         style="background:radial-gradient(circle,rgb(var(--glow-1)),transparent 68%)"
+         data-parallax="0.28" data-parallax-mouse="26"></div>
+    <div class="absolute -right-20 top-40 h-[30rem] w-[30rem] rounded-full blur-3xl animate-drift"
+         style="background:radial-gradient(circle,rgb(var(--glow-2)),transparent 68%); animation-delay:-6s"
+         data-parallax="0.2" data-parallax-mouse="-34"></div>
+    <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg"></div>
+  </div>
+
+  <div class="shell">
+    <div class="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
+
+      <div class="order-2 lg:order-1">
+        <p class="eyebrow reveal" data-i18n="hero.eyebrow">Fullstack Developer &amp; Infrastructure Engineer</p>
+
+        <h1 class="reveal mt-5 font-display font-bold leading-[1.06] tracking-tight"
+            style="font-size:clamp(2.4rem,1.4rem + 4.6vw,4.5rem)">
+          <span class="block text-muted" data-i18n="hero.greet">Halo, saya</span>
+          <span class="block text-gradient">Deni Hidayat.</span>
+        </h1>
+
+        <p class="lede reveal mt-6 max-w-xl" data-i18n="hero.hook">
+          Saya membangun aplikasi web dan mobile dari baris kode pertama sampai berjalan aman dan stabil di server produksi.
+        </p>
+
+        <div class="reveal mt-9 flex flex-wrap items-center gap-3">
+          <a href="#kontak" class="btn btn-primary w-full sm:w-auto">
+            <span data-i18n="hero.cta1">Hubungi saya</span>
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#keahlian" class="btn btn-ghost w-full sm:w-auto" data-i18n="hero.cta2">Lihat apa yang saya kerjakan</a>
+        </div>
+
+        <div class="reveal mt-12 flex flex-nowrap items-center justify-between gap-x-3 font-mono text-[clamp(0.56rem,2.4vw,0.75rem)] text-muted sm:flex-wrap sm:justify-start sm:gap-x-8 sm:gap-y-3">
+          <span class="whitespace-nowrap" data-i18n="hero.tag1">Web &amp; Mobile</span>
+          <span class="whitespace-nowrap" data-i18n="hero.tag2">Server &amp; Docker</span>
+          <span class="whitespace-nowrap" data-i18n="hero.tag3">Keamanan aplikasi</span>
+        </div>
+      </div>
+
+      <!-- Portrait: kecil di atas teks pada layar sempit, besar di kanan pada desktop. -->
+      <div class="reveal order-1 lg:order-2">
+        <div class="relative w-28 sm:w-32 lg:mx-auto lg:w-[clamp(240px,26vw,330px)]"
+             data-parallax="0.16" data-parallax-mouse="-14">
+          <div class="pointer-events-none absolute -inset-5 rounded-full blur-2xl lg:-inset-8"
+               style="background:radial-gradient(circle,rgb(var(--glow-1)),transparent 70%)" aria-hidden="true"></div>
+          <div class="relative rounded-full p-[3px] lg:animate-float"
+               style="background:linear-gradient(135deg,rgb(var(--accent)),rgb(var(--accent-2)))">
+            <img src="assets/img/profil.webp" width="460" height="460" fetchpriority="high"
+                 class="block w-full rounded-full border-4 border-bg object-cover"
+                 alt="Foto Deni Hidayat" data-i18n="hero.photoAlt" data-i18n-attr="alt">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TENTANG =========================== -->
+<section id="tentang" class="relative py-12 sm:py-16 lg:py-24">
+  <div class="shell">
+    <div class="grid gap-8 sm:gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
+
+      <div>
+        <p class="eyebrow reveal" data-i18n="about.eyebrow">Tentang</p>
+        <h2 class="section-title reveal mt-3 sm:mt-4" data-i18n="about.title">Satu pekerjaan yang utuh</h2>
+        <div class="reveal mt-5 h-1 w-16 rounded-full" style="background:linear-gradient(90deg,rgb(var(--accent)),rgb(var(--accent-2)))"></div>
+
+        <!-- Kartu terminal: dekoratif, ikut parallax kursor. -->
+        <div class="reveal mt-8 hidden lg:block">
+          <div class="card p-0" aria-hidden="true" data-parallax-mouse="-10">
+            <div class="flex items-center gap-2 border-b border-line px-5 py-3">
+              <span class="h-2.5 w-2.5 rounded-full" style="background:#ef4444"></span>
+              <span class="h-2.5 w-2.5 rounded-full" style="background:#f59e0b"></span>
+              <span class="h-2.5 w-2.5 rounded-full" style="background:#22c55e"></span>
+              <span class="ml-2 font-mono text-[0.7rem] text-muted">deploy.sh</span>
+            </div>
+            <div class="space-y-2 p-5 font-mono text-[0.78rem] leading-relaxed">
+              <p><span class="text-accent">$</span> docker compose up -d</p>
+              <p class="text-muted">✓ api · postgres · redis · rabbitmq</p>
+              <p><span class="text-accent">$</span> nginx -t &amp;&amp; systemctl reload nginx</p>
+              <p class="text-muted">✓ configuration file test is successful</p>
+              <p><span class="text-accent">$</span> curl -sI https://app.example.com</p>
+              <p class="text-muted">HTTP/2 200 · cf-cache-status: HIT</p>
+              <p><span class="text-accent-2">▍</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-5 text-[1.02rem] leading-relaxed text-muted">
+        <p class="reveal" data-i18n="about.p1">
+          Saya seorang developer yang senang menyelesaikan masalah dari ujung ke ujung. Menulis backend dan frontend, merancang database, lalu memastikan semuanya ter-deploy dengan rapi, aman, dan tetap hidup saat trafik datang — bagi saya itu satu pekerjaan yang utuh, bukan tiga pekerjaan berbeda.
+        </p>
+        <p class="reveal" data-i18n="about.p2">
+          Saya terbiasa bekerja dengan tenang di bawah tekanan: menangani insiden produksi, mengejar deadline ketat, dan mengambil keputusan teknis yang jelas saat waktu terbatas. Yang saya jaga selalu sama — komunikasi yang jujur dan hasil yang bisa diandalkan.
+        </p>
+        <p class="reveal text-text" data-i18n="about.p3">
+          Kalau Anda mencari orang yang bisa dipercaya memegang aplikasi dari kode sampai server, kemungkinan besar kita cocok.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================== KEAHLIAN =========================== -->
+<section id="keahlian" class="relative overflow-hidden py-12 sm:py-16 lg:py-24">
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute left-1/2 top-1/4 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full blur-3xl"
+         style="background:radial-gradient(circle,rgb(var(--glow-2)),transparent 70%)"
+         data-parallax="0.16"></div>
+  </div>
+
+  <div class="shell">
+    <header class="mx-auto max-w-3xl text-center">
+      <p class="eyebrow reveal" data-i18n="skills.eyebrow">Keahlian</p>
+      <h2 class="section-title reveal mt-3 sm:mt-4" data-i18n="skills.title">Tiga hal yang saya kerjakan</h2>
+      <p class="lede reveal mx-auto mt-4 max-w-2xl sm:mt-5" data-i18n="skills.sub">
+        Fullstack development, server &amp; infrastructure, dan keamanan aplikasi — kombinasi ketiganya yang membuat saya bisa memegang sebuah aplikasi dari repositori kosong sampai berjalan di produksi.
+      </p>
+      <ul class="reveal mx-auto mt-9 grid max-w-4xl grid-cols-4 gap-2.5 sm:mt-11 sm:flex sm:flex-wrap sm:justify-center sm:gap-4"
+          aria-label="Teknologi yang saya pakai" data-i18n="skills.techAria" data-i18n-attr="aria-label">
+        <li class="badge">
+          <img class="badge-icon" src="assets/img/icons/javascript.webp"
+               width="80" height="80" alt="JavaScript" decoding="async">
+          <span class="badge-label">JavaScript</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon" src="assets/img/icons/typescript.webp"
+               width="80" height="80" alt="TypeScript" decoding="async">
+          <span class="badge-label">TypeScript</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon" src="assets/img/icons/go.webp"
+               width="80" height="80" alt="Go" decoding="async">
+          <span class="badge-label">Go</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon badge-boost" src="assets/img/icons/php.webp"
+               width="80" height="80" alt="PHP" decoding="async">
+          <span class="badge-label">PHP</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon badge-boost" src="assets/img/icons/pascal.webp"
+               width="80" height="80" alt="Pascal" decoding="async">
+          <span class="badge-label">Pascal</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon" src="assets/img/icons/dart.webp"
+               width="80" height="80" alt="Dart" decoding="async">
+          <span class="badge-label">Dart</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon badge-boost" src="assets/img/icons/mysql.webp"
+               width="80" height="80" alt="MySQL" decoding="async">
+          <span class="badge-label">MySQL</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon badge-boost" src="assets/img/icons/postgresql.webp"
+               width="80" height="80" alt="PostgreSQL" decoding="async">
+          <span class="badge-label">PostgreSQL</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon badge-boost" src="assets/img/icons/sqlserver.webp"
+               width="80" height="80" alt="SQL Server" decoding="async">
+          <span class="badge-label">SQL Server</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon" src="assets/img/icons/redis.webp"
+               width="80" height="80" alt="Redis" decoding="async">
+          <span class="badge-label">Redis</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon" src="assets/img/icons/rabbitmq.webp"
+               width="80" height="80" alt="RabbitMQ" decoding="async">
+          <span class="badge-label">RabbitMQ</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon" src="assets/img/icons/ubuntu.webp"
+               width="80" height="80" alt="Ubuntu" decoding="async">
+          <span class="badge-label">Ubuntu</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon badge-boost" src="assets/img/icons/debian.webp"
+               width="80" height="80" alt="Debian" decoding="async">
+          <span class="badge-label">Debian</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon badge-boost" src="assets/img/icons/docker.webp"
+               width="80" height="80" alt="Docker" decoding="async">
+          <span class="badge-label">Docker</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon" src="assets/img/icons/proxmox.webp"
+               width="80" height="80" alt="Proxmox" decoding="async">
+          <span class="badge-label">Proxmox</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon" src="assets/img/icons/cloudflare.webp"
+               width="80" height="80" alt="Cloudflare" decoding="async">
+          <span class="badge-label">Cloudflare</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon badge-boost" src="assets/img/icons/waf.webp"
+               width="80" height="80" alt="WAF" decoding="async">
+          <span class="badge-label">WAF</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon badge-boost" src="assets/img/icons/firewall.webp"
+               width="80" height="80" alt="Firewall" decoding="async">
+          <span class="badge-label">Firewall</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon" src="assets/img/icons/nginx.webp"
+               width="80" height="80" alt="Nginx" decoding="async">
+          <span class="badge-label">Nginx</span>
+        </li>
+        <li class="badge">
+          <img class="badge-icon badge-boost" src="assets/img/icons/php-fpm.webp"
+               width="80" height="80" alt="PHP-FPM" decoding="async">
+          <span class="badge-label">PHP-FPM</span>
+        </li>
       </ul>
-      <div class="themeswitcher">
-        <a class="theme-switch" title="Switch Theme">
-          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
-        </a>
-      </div>
-    </div>
-    <div class="autopagerize_page_element">
-      <div class="content">
-
-        <div class="post animated fadeInDown">
-          <div class="post-title">
-            <h3><a href="/post/tutorial-php-desktop/">Tutorial PHP Desktop</a>
-            </h3>
-          </div>
-          <div class="post-content">
-            <div class="p_part">
-              <p>Tutorial PHP Desktop...</p>
-            </div>
-            <div class="p_part">
-              <p></p>
-            </div>
-          </div>
-          <div class="post-footer">
-            <div class="meta">
-              <div class="info"><i class="fa fa-sun-o"></i><span class="date">Sat, 22 May 2021</span>
-                <a class="tag" href="/tags/php/">PHP</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="post animated fadeInDown">
-          <div class="post-title">
-            <h3><a href="/post/menambahkan-api-rest-server-di-codeigniter3/">Menambahkan API Rest Server Di Codeigniter 3</a>
-            </h3>
-          </div>
-          <div class="post-content">
-            <div class="p_part">
-              <p>Menambahkan API Rest Server Di Codeigniter 3...</p>
-            </div>
-            <div class="p_part">
-              <p></p>
-            </div>
-          </div>
-          <div class="post-footer">
-            <div class="meta">
-              <div class="info"><i class="fa fa-sun-o"></i><span class="date">Sat, 22 May 2021</span>
-                <a class="tag" href="/tags/php/">PHP</a><a class="tag" href="/tags/ci3/">CI3</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="post animated fadeInDown">
-          <div class="post-title">
-            <h3><a href="/post/cara-upload-image-base64-ke-php-android-studio/">Cara Upload Image Base64 Ke PHP Android Studio</a>
-            </h3>
-          </div>
-          <div class="post-content">
-            <div class="p_part">
-              <p>Cara Upload Image Base64 Ke PHP Android Studio...</p>
-            </div>
-            <div class="p_part">
-              <p></p>
-            </div>
-          </div>
-          <div class="post-footer">
-            <div class="meta">
-              <div class="info"><i class="fa fa-sun-o"></i><span class="date">Sat, 22 May 2021</span>
-                <a class="tag" href="/tags/anroid/">ANDROID</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="post animated fadeInDown">
-          <div class="post-title">
-            <h3><a href="/post/cara-custom-modul-odoo12-python-javascript/">Cara Custom Modul Odoo 12 Python + Javascript</a>
-            </h3>
-          </div>
-          <div class="post-content">
-            <div class="p_part">
-              <p>Cara Custom Modul Odoo 12 Python + Javascript...</p>
-            </div>
-            <div class="p_part">
-              <p></p>
-            </div>
-          </div>
-          <div class="post-footer">
-            <div class="meta">
-              <div class="info"><i class="fa fa-sun-o"></i><span class="date">Sat, 22 May 2021</span>
-                <a class="tag" href="/tags/anroid/">ANDROID</a>
-                <a class="tag" href="/tags/odoo/">ODOO</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="post animated fadeInDown">
-          <div class="post-title">
-            <h3><a href="/post/perbedaan-custom-report-odoo10-12/">Perbedaan Custom Report Odoo 10 & 12</a>
-            </h3>
-          </div>
-          <div class="post-content">
-            <div class="p_part">
-              <p>Perbedaan Custom Report Odoo 10 & 12...</p>
-            </div>
-            <div class="p_part">
-              <p></p>
-            </div>
-          </div>
-          <div class="post-footer">
-            <div class="meta">
-              <div class="info"><i class="fa fa-sun-o"></i><span class="date">Sat, 22 May 2021</span>
-                <a class="tag" href="/tags/anroid/">ANDROID</a>
-                <a class="tag" href="/tags/odoo/">ODOO</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pagination">
-          <ul class="pagination">
-            <li class="page-item">
-              <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-            </li>
-
-            <li class="page-item disabled">
-              <a class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="/">1</a></li>
-            <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
-            <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
-            <li class="page-item"><a class="page-link" href="/page/4/">4</a></li>
-            <li class="page-item">
-              <a href="/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-            </li>
-            <li class="page-item">
-              <a href="/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    </header>
   </div>
+</section>
+
+
+<!-- ========================== CARA KERJA ========================== -->
+<section id="cara-kerja" class="relative py-12 sm:py-16 lg:py-24">
+  <div class="shell">
+    <header class="max-w-2xl">
+      <p class="eyebrow reveal" data-i18n="work.eyebrow">Cara kerja</p>
+      <h2 class="section-title reveal mt-3 sm:mt-4" data-i18n="work.title">Cara saya bekerja</h2>
+      <p class="lede reveal mt-4 sm:mt-5" data-i18n="work.sub">
+        Empat hal yang bisa Anda harapkan dari saya, di proyek apa pun.
+      </p>
+    </header>
+
+    <ol class="mt-9 grid gap-4 sm:mt-11 sm:gap-6 sm:grid-cols-2">
+      <li class="card reveal">
+        <h3 class="font-display text-lg font-bold" data-i18n="work.i1.title">Komunikasi yang jelas</h3>
+        <p class="mt-3 text-[0.95rem] leading-relaxed text-muted" data-i18n="work.i1.desc">Kabar baik maupun buruk saya sampaikan lebih awal, bukan di menit terakhir.</p>
+      </li>
+      <li class="card reveal">
+        <h3 class="font-display text-lg font-bold" data-i18n="work.i2.title">Tenang di bawah tekanan</h3>
+        <p class="mt-3 text-[0.95rem] leading-relaxed text-muted" data-i18n="work.i2.desc">Insiden produksi dan deadline ketat saya hadapi dengan langkah yang terukur, bukan panik.</p>
+      </li>
+      <li class="card reveal">
+        <h3 class="font-display text-lg font-bold" data-i18n="work.i3.title">Tuntas dari ujung ke ujung</h3>
+        <p class="mt-3 text-[0.95rem] leading-relaxed text-muted" data-i18n="work.i3.desc">Selesai bagi saya berarti berjalan di produksi — aman, terpantau, dan terdokumentasi.</p>
+      </li>
+      <li class="card reveal">
+        <h3 class="font-display text-lg font-bold" data-i18n="work.i4.title">Aman sejak awal</h3>
+        <p class="mt-3 text-[0.95rem] leading-relaxed text-muted" data-i18n="work.i4.desc">Keamanan saya pikirkan sejak desain, bukan setelah ada masalah.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================ KONTAK ============================ -->
+<section id="kontak" class="relative overflow-hidden py-14 sm:py-20 lg:py-28">
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute inset-0 grid-bg mask-fade opacity-50" data-parallax="0.1"></div>
+    <div class="absolute left-1/2 top-1/2 h-[28rem] w-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+         style="background:radial-gradient(ellipse,rgb(var(--glow-1)),transparent 70%)" data-parallax="0.22"></div>
+  </div>
+
+  <div class="shell text-center">
+    <p class="eyebrow reveal" data-i18n="contact.eyebrow">Kontak</p>
+    <h2 class="section-title reveal mx-auto mt-3 max-w-2xl sm:mt-4" data-i18n="contact.title">Mari bekerja sama</h2>
+    <p class="lede reveal mx-auto mt-4 max-w-xl sm:mt-6" data-i18n="contact.text">
+      Punya proyek atau posisi yang membutuhkan orang yang bisa diandalkan? Ceritakan kebutuhan Anda — saya balas secepat yang saya bisa.
+    </p>
+
+    <div class="reveal mt-9 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-center">
+      <a class="btn btn-ghost" href="mailto:denihida1216@gmail.com">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        Email
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/denihida1216" target="_blank" rel="noopener noreferrer">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49l-.01-1.9c-2.78.62-3.37-1.22-3.37-1.22-.46-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9l-.01 2.82c0 .27.18.6.69.49A10.03 10.03 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+        GitHub
+      </a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/denihida1216" target="_blank" rel="noopener noreferrer">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.75-1.95 4 0 4.75 2.5 4.75 5.8V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.2 1.46-2.2 2.97V21h-4V9z"/></svg>
+        LinkedIn
+      </a>
+      <a class="btn btn-ghost" href="https://wa.me/6285721661555" target="_blank" rel="noopener noreferrer">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.94.51 3.76 1.4 5.33L2 22l4.95-1.55a9.8 9.8 0 0 0 5.09 1.4h.01c5.43 0 9.84-4.4 9.84-9.84S17.47 2 12.04 2zm0 17.98h-.01a8.2 8.2 0 0 1-4.16-1.14l-.3-.18-2.94.92.94-2.87-.2-.3a8.13 8.13 0 0 1-1.25-4.36c0-4.52 3.68-8.2 8.2-8.2 2.19 0 4.25.86 5.8 2.4a8.15 8.15 0 0 1 2.4 5.8c0 4.52-3.68 8.2-8.2 8.2zm4.5-6.14c-.25-.12-1.46-.72-1.68-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.64 4.19 3.7.58.26 1.04.41 1.4.52.59.19 1.12.16 1.55.1.47-.07 1.46-.6 1.66-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+
+    <p class="reveal mt-8 font-mono text-xs text-muted" data-i18n="contact.note">Biasanya saya balas dalam 24 jam.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="border-t border-line py-8 sm:py-10">
+  <div class="shell text-center text-sm text-muted">
+    <p data-i18n="footer.text">© 2026 Deni Hidayat</p>
+  </div>
+</footer>
+
+<button id="to-top" type="button" class="to-top"
+        data-i18n="ui.toTop" data-i18n-attr="aria-label,title"
+        aria-label="Kembali ke atas" title="Kembali ke atas">
+  <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M6 11l6-6 6 6"/>
+  </svg>
+</button>
+
+<script src="assets/js/anime.min.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+<script src="assets/js/smoke.js" defer></script>
 </body>
-<script type="text/javascript"
-  src="https://denihida1216.github.io/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js"
-  integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw=" crossorigin="anonymous"></script>
-<script type="text/javascript"
-  src="https://denihida1216.github.io/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js"
-  integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4=" crossorigin="anonymous"></script>
-<script type="text/javascript"
-  src="https://denihida1216.github.io/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
-  integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://denihida1216.github.io/js/jquery.lazy.min.js" crossorigin="anonymous"></script>
-
-<script type="application/javascript">
-  var doNotTrack = false;
-  if (!doNotTrack) {
-    window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
-    ga('create', 'UA-164557093-2', 'auto');
-
-    ga('send', 'pageview');
-  }
-  $(function () {
-    $('.lazy').lazy();
-  });
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-</html>
-</body>
-
 </html>

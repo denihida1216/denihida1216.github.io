@@ -1,0 +1,20 @@
+{
+  "name": "denihida1216-site-build",
+  "version": "1.0.0",
+  "description": "Toolchain build untuk denihida1216.github.io (Tailwind + uji Playwright). Tidak disajikan ke publik.",
+  "scripts": {
+    "dev": "trap 'kill 0' EXIT INT TERM; (tail -f /dev/null | npm run watch) & npm run serve",
+    "serve": "python3 -m http.server 8000 --directory .. --bind 127.0.0.1",
+    "build": "tailwindcss -c tailwind.config.js -i src/input.css -o ../assets/css/site.css --minify",
+    "watch": "tailwindcss -c tailwind.config.js -i src/input.css -o ../assets/css/site.css --watch",
+    "check": "python3 scripts/check_site.py ../index.html",
+    "test": "node scripts/test_site.mjs .."
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "playwright": "^1.62.1",
+    "tailwindcss": "^3.4.17"
+  },
+  "private": true
+}
