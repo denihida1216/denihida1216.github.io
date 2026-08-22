@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Situs ini satu halaman, jadi sitemap-nya berisi satu URL.
+
+  URL ber-fragment (#tentang, #keahlian, ...) SENGAJA tidak dimasukkan:
+  Google membuang segala sesuatu setelah "#", jadi entri seperti itu
+  dibaca sebagai duplikat beranda dan dilaporkan sebagai error di Search
+  Console. Struktur per-section dijelaskan lewat JSON-LD hasPart di
+  index.html, bukan di sini.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://denihida1216.github.io/</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
