@@ -8,7 +8,8 @@
     "build": "tailwindcss -c tailwind.config.js -i src/input.css -o ../assets/css/site.css --minify",
     "watch": "tailwindcss -c tailwind.config.js -i src/input.css -o ../assets/css/site.css --watch",
     "check": "python3 scripts/check_site.py ../index.html",
-    "test": "node scripts/test_site.mjs .."
+    "test": "node scripts/test_site.mjs ..",
+    "deploy": "bash scripts/deploy.sh"
   },
   "license": "ISC",
   "type": "commonjs",

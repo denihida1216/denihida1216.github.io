@@ -47,8 +47,9 @@ python3 -m http.server 8000
 cd build && npm install
 npm run build     # tulis ulang assets/css/site.css
 npm run watch     # build otomatis saat mengedit
-npm run check     # validator statis (61 pemeriksaan)
+npm run check     # validator statis (65 pemeriksaan)
 npm run test      # uji perilaku di browser (Playwright)
+npm run deploy    # build + uji + commit + push + verifikasi live
 ```
 
 Selama hanya mengubah teks atau kelas Tailwind yang sudah dipakai, tidak
@@ -56,7 +57,20 @@ perlu build ulang. Kelas Tailwind **baru** butuh `npm run build`.
 
 ## Deploy
 
-Push ke branch `main`. GitHub Pages menyajikan langsung dari root; file
+```bash
+cd build
+npm run deploy -- "pesan commit"
+```
+
+Skrip itu build ulang CSS, menjalankan validator dan uji browser, baru
+commit dan push — kalau ada yang gagal, prosesnya berhenti sebelum
+menyentuh git. Setelah push, skrip menunggu GitHub Pages selesai
+membangun lalu memastikan halaman **dan aset-asetnya** benar-benar
+tersaji (halaman tanpa CSS juga membalas 200, jadi mengecek halaman saja
+tidak cukup).
+
+Branch yang disajikan adalah **`master`**, bukan `main`; skrip membacanya
+sendiri lewat `gh api` dan menolak jalan kalau branch lokal tidak cocok.
 `.nojekyll` mematikan pemrosesan Jekyll.
 
 ## Catatan
