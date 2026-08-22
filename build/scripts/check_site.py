@@ -68,7 +68,12 @@ def collect_assets(html: str, base: Path) -> tuple[list[Path], list[str]]:
         if ref.startswith(("http://", "https://", "//")):
             external.append(ref)
             return
-        p = (origin.parent / ref).resolve()
+        # Path absolut ("/sitemap.xml") relatif terhadap root situs,
+        # bukan terhadap folder berkas yang merujuknya.
+        if ref.startswith("/"):
+            p = (base.parent / ref.lstrip("/")).resolve()
+        else:
+            p = (origin.parent / ref).resolve()
         if p in seen:
             return
         seen.add(p)
@@ -115,6 +120,12 @@ def main() -> int:
     code_files = [a for a in assets if a.exists() and a.suffix in (".css", ".js")]
     bundle = html + "\n" + "\n".join(a.read_text(encoding="utf-8", errors="ignore") for a in code_files)
 
+    def rel(target: Path, root: Path) -> str:
+        try:
+            return str(target.relative_to(root))
+        except ValueError:
+            return str(target)
+
     checks: list[tuple[str, bool, str]] = []
 
     def check(name: str, ok: bool, hint: str = "") -> None:
@@ -124,7 +135,7 @@ def main() -> int:
     check(
         "Semua aset yang direferensikan ada di lokal",
         not missing,
-        "hilang: " + ", ".join(str(m.relative_to(path.parent)) for m in missing) if missing else "",
+        "hilang: " + ", ".join(rel(m, path.parent) for m in missing) if missing else "",
     )
     check(
         "Tidak ada aset dari domain luar (CDN/Google Fonts)",
@@ -237,6 +248,14 @@ def main() -> int:
     check("JSON-LD Person ada", '"@type"' in html and '"Person"' in html)
     check("theme-color ada", 'name="theme-color"' in html)
     check("Canonical URL ada", 'rel="canonical"' in html)
+    check(
+        "Meta verifikasi Search Console ada",
+        'name="google-site-verification"' in html,
+        "jangan hilang saat menulis ulang <head>",
+    )
+    check("Tautan sitemap ada", 'rel="sitemap"' in html)
+    for f_ in ("sitemap.xml", "robots.txt"):
+        check(f"{f_} ada di root situs", (path.parent / f_).is_file())
 
     # --- Konten: 3 pilar & teknologi kunci ---------------------------------
     for kw in ("TypeScript", "PHP", "Dart", "PostgreSQL", "Redis",
