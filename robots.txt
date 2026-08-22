@@ -1,0 +1,8 @@
+# https://denihida1216.github.io/
+User-agent: *
+Allow: /
+
+# Sumber build & foto asli — tidak perlu masuk indeks.
+Disallow: /build/
+
+Sitemap: https://denihida1216.github.io/sitemap.xml
