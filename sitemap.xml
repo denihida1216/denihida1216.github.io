@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Situs ini satu halaman, jadi sitemap-nya berisi satu URL.
+  Satu URL per bahasa. Tiap halaman punya meta OG-nya sendiri, jadi link
+  yang dibagikan membawa judul, deskripsi, dan gambar sesuai bahasanya.
 
   URL ber-fragment (#tentang, #keahlian, ...) SENGAJA tidak dimasukkan:
-  Google membuang segala sesuatu setelah "#", jadi entri seperti itu
-  dibaca sebagai duplikat beranda dan dilaporkan sebagai error di Search
-  Console. Struktur per-section dijelaskan lewat JSON-LD hasPart di
-  index.html, bukan di sini.
+  Google membuang segalanya setelah "#", jadi entri seperti itu dibaca
+  sebagai duplikat beranda dan dilaporkan error di Search Console.
+  Struktur per-section dijelaskan lewat JSON-LD hasPart di tiap halaman.
 -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://denihida1216.github.io/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://denihida1216.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://denihida1216.github.io/id/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://denihida1216.github.io/"/>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://denihida1216.github.io/id/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://denihida1216.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://denihida1216.github.io/id/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://denihida1216.github.io/"/>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 </urlset>

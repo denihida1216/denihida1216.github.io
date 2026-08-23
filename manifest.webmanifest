@@ -1,0 +1,35 @@
+{
+  "name": "Deni Hidayat — Fullstack Developer & Infrastructure Engineer",
+  "short_name": "Deni Hidayat",
+  "description": "Portfolio of Deni Hidayat — a fullstack developer (web & mobile) who also handles servers, Docker, and application security.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "dir": "ltr",
+  "theme_color": "#0b1220",
+  "background_color": "#0b1220",
+  "categories": ["portfolio", "business"],
+  "icons": [
+    {
+      "src": "/assets/img/app-icon-192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/app-icon-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/app-icon-512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "maskable"
+    }
+  ]
+}

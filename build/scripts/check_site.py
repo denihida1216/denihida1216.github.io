@@ -188,12 +188,26 @@ def main() -> int:
         "teks default di markup harus Bahasa Inggris",
     )
     check("Meta viewport ada", 'name="viewport"' in html)
-    for anchor in ("tentang", "keahlian", "cara-kerja", "kontak"):
+    # Anchor mengikuti bahasa halaman (#about di EN, #tentang di ID), jadi
+    # namanya tidak dipatok — yang diperiksa: navbar punya empat tautan dan
+    # semuanya menunjuk section yang benar-benar ada.
+    nav_anchor = re.findall(r'<a href="#([\w-]+)"[^>]*class="nav-link"', html)
+    check(
+        f"Navbar punya empat anchor section ({len(nav_anchor)})",
+        len(nav_anchor) == 4,
+        f"ditemukan: {nav_anchor}",
+    )
+    for anchor in nav_anchor:
         check(
-            f"Section anchor #{anchor} ada",
+            f"Section #{anchor} ada",
             f'id="{anchor}"' in html,
             "id section harus konsisten dengan navbar",
         )
+    check(
+        "Hero punya kait data-hero (dipakai JS lintas bahasa)",
+        "data-hero" in html,
+        "id hero berbeda per bahasa, jadi JS tidak boleh mengandalkan id",
+    )
     nav_hrefs = set(re.findall(r'href="#([a-z-]+)"', html))
     check(
         "Semua anchor navbar punya target",
@@ -201,20 +215,53 @@ def main() -> int:
         f"anchor tanpa target: {sorted(h for h in nav_hrefs if f'id=\"{h}\"' not in html)}",
     )
 
-    # --- Bilingual ----------------------------------------------------------
+    # --- Bilingual: satu halaman per bahasa ----------------------------------
+    # Bahasa ditentukan URL, bukan JavaScript: crawler tidak menjalankan JS,
+    # jadi satu URL hanya bisa punya satu judul/deskripsi/gambar preview.
+    import json as _json
+
     keys = sorted(set(re.findall(r'data-i18n="([^"]+)"', html)))
-    check("Mekanisme i18n (data-i18n) dipakai", bool(keys))
-    check(
-        "Kamus dua bahasa ada (kunci id & en)",
-        bool(re.search(r"\bid\s*:\s*\{", bundle) and re.search(r"\ben\s*:\s*\{", bundle)),
-        "kamus DICT harus punya blok id dan en",
-    )
-    untranslated = [k for k in keys if len(re.findall(r"['\"]" + re.escape(k) + r"['\"]\s*:", bundle)) < 2]
-    check(
-        "Setiap kunci data-i18n punya teks ID dan EN",
-        not untranslated,
-        f"kunci kurang terjemahan: {untranslated[:8]}" if untranslated else "",
-    )
+    check("Penanda teks bilingual (data-i18n) dipakai", bool(keys))
+
+    kamus_path = path.parent / "build/src/i18n.json"
+    check("Kamus dua bahasa ada (build/src/i18n.json)", kamus_path.is_file())
+    if kamus_path.is_file():
+        _i18n = _json.loads(kamus_path.read_text(encoding="utf-8"))
+        kurang = [k for k in keys if k not in _i18n.get("en", {}) or k not in _i18n.get("id", {})]
+        check(
+            "Setiap kunci data-i18n punya teks ID dan EN",
+            not kurang,
+            f"kunci kurang terjemahan: {kurang[:8]}" if kurang else "",
+        )
+
+    halaman_id = path.parent / "id/index.html"
+    check("Halaman versi Indonesia ada (id/index.html)", halaman_id.is_file())
+    if halaman_id.is_file():
+        html_id = halaman_id.read_text(encoding="utf-8")
+        check('Halaman /id/ memakai lang="id"', bool(re.search(r'<html[^>]*lang="id"', html_id)))
+        check(
+            "Halaman /id/ punya canonical sendiri",
+            'rel="canonical" href="https://denihida1216.github.io/id/"' in html_id,
+        )
+        check(
+            "Halaman /id/ memakai gambar preview Indonesia",
+            "og-cover-id.webp" in html_id,
+            "link yang dibagikan harus membawa gambar sesuai bahasanya",
+        )
+        check(
+            "Aset di /id/ memakai path relatif satu tingkat",
+            'href="../assets/' in html_id and 'src="../assets/' in html_id,
+        )
+        check(
+            "Jumlah teks bilingual sama di kedua halaman",
+            len(re.findall(r'data-i18n="', html_id)) == len(re.findall(r'data-i18n="', html)),
+            "id/index.html digenerate — jalankan `npm run build` setelah mengubah index.html",
+        )
+        for berkas, nama in ((html, "index.html"), (html_id, "id/index.html")):
+            check(
+                f"hreflang lengkap di {nama}",
+                all(f'hreflang="{h}"' in berkas for h in ("en", "id", "x-default")),
+            )
 
     # --- Tema & motion ------------------------------------------------------
     check(
@@ -260,6 +307,45 @@ def main() -> int:
     check("Tautan sitemap ada", 'rel="sitemap"' in html)
     for f_ in ("sitemap.xml", "robots.txt"):
         check(f"{f_} ada di root situs", (path.parent / f_).is_file())
+
+    # --- PWA -----------------------------------------------------------------
+    manifest = path.parent / "manifest.webmanifest"
+    check("manifest.webmanifest ada", manifest.is_file())
+    check('Manifest ditautkan dari <head>', 'rel="manifest"' in html)
+    if manifest.is_file():
+        m = _json.loads(manifest.read_text(encoding="utf-8"))
+        for kunci in ("name", "short_name", "start_url", "display", "theme_color", "background_color"):
+            check(f"Manifest punya {kunci}", bool(m.get(kunci)))
+        ukuran = {i.get("sizes") for i in m.get("icons", [])}
+        check(
+            "Manifest punya ikon 192 dan 512",
+            {"192x192", "512x512"} <= ukuran,
+            "Chrome butuh keduanya supaya situs bisa dipasang",
+        )
+        check(
+            "Ada ikon maskable",
+            any("maskable" in (i.get("purpose") or "") for i in m.get("icons", [])),
+            "tanpa ini Android memotong ikonnya sembarangan",
+        )
+        hilang = [i["src"] for i in m.get("icons", [])
+                  if not (path.parent / i["src"].lstrip("/")).is_file()]
+        check("Semua ikon manifest ada berkasnya", not hilang, str(hilang))
+
+    sw = path.parent / "sw.js"
+    check("Service worker ada", sw.is_file())
+    if sw.is_file():
+        isi_sw = sw.read_text(encoding="utf-8")
+        check("Service worker didaftarkan dari app.js", "serviceWorker" in bundle)
+        check("Service worker punya handler fetch", "addEventListener('fetch'" in isi_sw)
+        check(
+            "Nama cache ikut berubah tiap rilis",
+            bool(re.search(r"const CACHE = 'dh-[0-9a-f]{6,}'", isi_sw)),
+            "cache statis membuat pengunjung tersangkut versi lama",
+        )
+        check(
+            "Cache lama dihapus saat activate",
+            "caches.delete" in isi_sw,
+        )
 
     # --- Konten: 3 pilar & teknologi kunci ---------------------------------
     for kw in ("TypeScript", "Python", "Dart", "PostgreSQL", "Redis",

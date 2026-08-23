@@ -5,11 +5,12 @@
   "scripts": {
     "dev": "trap 'kill 0' EXIT INT TERM; (tail -f /dev/null | npm run watch) & npm run serve",
     "serve": "python3 -m http.server 8000 --directory .. --bind 127.0.0.1",
-    "build": "tailwindcss -c tailwind.config.js -i src/input.css -o ../assets/css/site.css --minify",
+    "build": "tailwindcss -c tailwind.config.js -i src/input.css -o ../assets/css/site.css --minify && python3 scripts/make-id.py && python3 scripts/make-sw.py",
     "watch": "tailwindcss -c tailwind.config.js -i src/input.css -o ../assets/css/site.css --watch",
     "check": "python3 scripts/check_site.py ../index.html",
     "test": "node scripts/test_site.mjs ..",
-    "deploy": "bash scripts/deploy.sh"
+    "deploy": "bash scripts/deploy.sh",
+    "images": "python3 scripts/make-images.py && node scripts/make-og.mjs"
   },
   "license": "ISC",
   "type": "commonjs",

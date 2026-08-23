@@ -34,13 +34,20 @@ const ROOT = path.resolve(process.argv[2] || '.');
 const { chromium } = loadPlaywright(ROOT);
 const TYPES = {
   '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript',
-  '.woff2': 'font/woff2', '.png': 'image/png', '.svg': 'image/svg+xml',
-  '.json': 'application/json', '.ico': 'image/x-icon',
+  '.woff2': 'font/woff2', '.webp': 'image/webp', '.png': 'image/png',
+  '.svg': 'image/svg+xml', '.json': 'application/json',
+  '.webmanifest': 'application/manifest+json', '.xml': 'application/xml',
+  '.txt': 'text/plain', '.ico': 'image/x-icon',
 };
 
 const server = http.createServer((req, res) => {
   const rel = decodeURIComponent(req.url.split('?')[0]).replace(/^\/+/, '') || 'index.html';
-  const file = path.join(ROOT, rel);
+  let file = path.join(ROOT, rel);
+  // Direktori dilayani sebagai index.html-nya, sama seperti GitHub Pages —
+  // tanpa ini /id/ balas 404 dan ujinya gagal padahal situsnya benar.
+  if (fs.existsSync(file) && fs.statSync(file).isDirectory()) {
+    file = path.join(file, 'index.html');
+  }
   if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
     res.writeHead(404).end('not found');
     return;
@@ -73,13 +80,35 @@ ok('hero default Bahasa Inggris', /Hi, I'm/.test(await p.locator('h1').innerText
 ok('lang=en', (await p.evaluate(() => document.documentElement.lang)) === 'en');
 ok('navbar default EN', (await p.locator('#nav-links a').first().innerText()) === 'About');
 
-await p.click('#lang-toggle'); await p.waitForTimeout(250);
-ok('toggle ID mengubah hero', /Halo, saya/.test(await p.locator('h1').innerText()));
-ok('lang=id', (await p.evaluate(() => document.documentElement.lang)) === 'id');
-ok('navbar ikut ID', (await p.locator('#nav-links a').first().innerText()) === 'Tentang');
-ok('pilihan bahasa tersimpan', (await p.evaluate(() => localStorage.getItem('dh-lang'))) === 'id');
-await p.click('#lang-toggle'); await p.waitForTimeout(200);
-ok('toggle balik ke EN', /Hi, I'm/.test(await p.locator('h1').innerText()));
+// Toggle bahasa adalah TAUTAN ke halaman bahasa itu, bukan tombol yang
+// menukar teks. Alasannya: crawler membaca meta OG dari HTML statis dan
+// tidak menjalankan JS, jadi URL harus ikut berubah supaya link yang
+// dibagikan membawa judul/deskripsi/gambar bahasa yang benar.
+const toggle = await p.evaluate(() => {
+  const a = document.getElementById('lang-toggle');
+  return { tag: a.tagName, href: a.getAttribute('href'), hreflang: a.getAttribute('hreflang'), teks: a.textContent.trim() };
+});
+ok('toggle bahasa berupa tautan, bukan tombol', toggle.tag === 'A', toggle.tag);
+ok('toggle menunjuk ke /id/', toggle.href === 'id/' && toggle.hreflang === 'id', JSON.stringify(toggle));
+ok('label toggle menunjukkan bahasa tujuan', toggle.teks === 'ID', toggle.teks);
+
+await p.click('#lang-toggle');
+await p.waitForLoadState('networkidle');
+await p.waitForTimeout(700);
+ok('klik toggle pindah ke halaman Indonesia', /\/id\/?$/.test(new URL(p.url()).pathname), new URL(p.url()).pathname);
+ok('halaman Indonesia berbahasa Indonesia', /Halo, saya/.test(await p.locator('h1').innerText()));
+ok('lang=id di halaman Indonesia', (await p.evaluate(() => document.documentElement.lang)) === 'id');
+ok('navbar Indonesia', (await p.locator('#nav-links a').first().innerText()) === 'Tentang');
+ok('gambar preview /id/ berbahasa Indonesia',
+  await p.evaluate(() => document.querySelector('meta[property="og:image"]').content.includes('og-cover-id')));
+ok('aset /id/ termuat (path relatif benar)',
+  await p.evaluate(() => document.fonts.check('700 2rem "Space Grotesk"') &&
+    [...document.querySelectorAll('img')].every((i) => i.naturalWidth > 0)));
+
+await p.click('#lang-toggle');
+await p.waitForLoadState('networkidle');
+await p.waitForTimeout(700);
+ok('toggle balik ke halaman Inggris', /Hi, I'm/.test(await p.locator('h1').innerText()));
 
 // --- tema -------------------------------------------------------------------
 const th1 = await p.evaluate(() => document.documentElement.getAttribute('data-theme'));
@@ -93,28 +122,28 @@ ok('pilihan tema tersimpan', (await p.evaluate(() => localStorage.getItem('dh-th
 await p.click('#theme-toggle'); await p.waitForTimeout(200);
 
 // --- motion & parallax ------------------------------------------------------
-await p.evaluate(() => document.getElementById('keahlian').scrollIntoView());
+await p.evaluate(() => document.getElementById('skills').scrollIntoView());
 await p.waitForTimeout(2000);
 const op = await p.evaluate(() =>
-  [...document.querySelectorAll('#keahlian .reveal')].map((e) => parseFloat(getComputedStyle(e).opacity)));
+  [...document.querySelectorAll('#skills .reveal')].map((e) => parseFloat(getComputedStyle(e).opacity)));
 ok('elemen reveal tampil setelah scroll', op.length > 0 && op.every((o) => o > 0.95), JSON.stringify(op));
 
 // reveal main lagi saat scroll balik ke atas
 await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
 await p.waitForTimeout(900);
 const resetOp = await p.evaluate(() =>
-  [...document.querySelectorAll('#keahlian .reveal')].map((e) => parseFloat(getComputedStyle(e).opacity)));
+  [...document.querySelectorAll('#skills .reveal')].map((e) => parseFloat(getComputedStyle(e).opacity)));
 ok('elemen di-reset saat keluar viewport', resetOp.every((o) => o < 0.1), JSON.stringify(resetOp));
 
-await p.evaluate(() => document.getElementById('keahlian').scrollIntoView());
+await p.evaluate(() => document.getElementById('skills').scrollIntoView());
 await p.waitForTimeout(1200);
 const againOp = await p.evaluate(() =>
-  [...document.querySelectorAll('#keahlian .reveal')].map((e) => parseFloat(getComputedStyle(e).opacity)));
+  [...document.querySelectorAll('#skills .reveal')].map((e) => parseFloat(getComputedStyle(e).opacity)));
 ok('reveal main lagi saat scroll balik ke atas', againOp.every((o) => o > 0.95), JSON.stringify(againOp));
 
-const t0 = await p.evaluate(() => { window.scrollTo(0, 0); return document.querySelector('#beranda [data-parallax]').style.transform; });
+const t0 = await p.evaluate(() => { window.scrollTo(0, 0); return document.querySelector('#home [data-parallax]').style.transform; });
 await p.evaluate(() => window.scrollTo(0, 600)); await p.waitForTimeout(400);
-const t1 = await p.evaluate(() => document.querySelector('#beranda [data-parallax]').style.transform);
+const t1 = await p.evaluate(() => document.querySelector('#home [data-parallax]').style.transform);
 ok('parallax bergerak saat scroll', t0 !== t1, `${t0} -> ${t1}`);
 
 ok('navbar jadi solid saat scroll', await p.evaluate(() => document.getElementById('nav-shell').classList.contains('backdrop-blur-xl')));
@@ -122,7 +151,7 @@ ok('scrollspy menandai section aktif', await p.evaluate(() => !!document.querySe
 
 // --- gambar -----------------------------------------------------------------
 const photo = await p.evaluate(() => {
-  const img = document.querySelector('#beranda img');
+  const img = document.querySelector('#home img');
   if (!img) return null;
   return { w: img.naturalWidth, src: img.currentSrc, alt: img.alt };
 });
@@ -134,7 +163,7 @@ ok('foto profil punya alt', !!photo && photo.alt.length > 0);
 const shot = (y) => p.evaluate(async (yy) => {
   window.scrollTo(0, yy);
   await new Promise((r) => setTimeout(r, 350));
-  const el = document.querySelector('#beranda [data-parallax]');
+  const el = document.querySelector('#home [data-parallax]');
   const m = /translate3d\([^,]+,\s*(-?[\d.]+)px/.exec(el.style.transform || '');
   return m ? parseFloat(m[1]) : null;
 }, y);
@@ -151,9 +180,6 @@ ok('pergeseran kembali saat scroll naik',
 ok('parallax tidak menempel di elemen .reveal',
   await p.evaluate(() => !document.querySelector('.reveal[data-parallax], .reveal[data-parallax-mouse]')),
   'pindahkan data-parallax ke elemen di dalam .reveal');
-await p.click('#lang-toggle'); await p.waitForTimeout(250);
-ok('alt foto ikut ganti bahasa', await p.evaluate(() => /Foto Deni/.test(document.querySelector('#beranda img').alt)));
-await p.click('#lang-toggle'); await p.waitForTimeout(250);
 
 const fav = await p.evaluate(() => {
   const l = document.querySelector('link[rel="icon"]');
@@ -183,7 +209,7 @@ const sweepHero = async (page) => {
   for (const [x, y] of pts.reverse()) { await page.mouse.move(x - 40, y - 90); await page.waitForTimeout(40); }
 };
 
-ok('kanvas asap ada di hero', await p.evaluate(() => !!document.querySelector('#beranda #smoke')));
+ok('kanvas asap ada di hero', await p.evaluate(() => !!document.querySelector('#home #smoke')));
 ok('kanvas asap disembunyikan dari screen reader',
   await p.evaluate(() => !!document.getElementById('smoke').closest('[aria-hidden="true"]')));
 await p.evaluate(() => window.scrollTo(0, 0)); await p.waitForTimeout(300);
@@ -211,14 +237,14 @@ await p.click('#theme-toggle');
 await p.waitForTimeout(300);
 
 ok('asap tidak menghalangi tombol hero', await p.evaluate(() => {
-  const cta = document.querySelector('#beranda a[href="#kontak"]');
+  const cta = document.querySelector('#home a[href="#contact"]');
   const r = cta.getBoundingClientRect();
   const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
   return cta.contains(top) || top === cta;
 }));
 
 // --- daftar teknologi -------------------------------------------------------
-await p.evaluate(() => document.getElementById('keahlian').scrollIntoView());
+await p.evaluate(() => document.getElementById('skills').scrollIntoView());
 await p.waitForTimeout(1500);
 
 const tech = await p.evaluate(() => {
@@ -251,17 +277,17 @@ ok('ikon berukuran 40px', tech.ikonPx === 40, String(tech.ikonPx));
 ok('desktop: nama teknologi terlihat',
   await p.evaluate(() => getComputedStyle(document.querySelector('.badge-label')).display !== 'none'));
 ok('desktop: tombol tidak dipaksa selebar layar', await p.evaluate(() =>
-  [...document.querySelectorAll('#beranda .btn, #kontak .btn')].every((a) =>
+  [...document.querySelectorAll('#home .btn, #contact .btn')].every((a) =>
     a.getBoundingClientRect().width < a.parentElement.getBoundingClientRect().width * 0.6)));
 ok('daftar teknologi tidak beranimasi jalan',
   await p.evaluate(() => !document.querySelector('.marquee, .marquee-track')));
 ok('section keahlian hanya berisi judul + daftar, tanpa kartu pilar',
-  await p.evaluate(() => document.querySelectorAll('#keahlian article').length === 0));
+  await p.evaluate(() => document.querySelectorAll('#skills article').length === 0));
 
 // Kartu cara kerja sengaja tanpa nomor urut — pastikan tidak ada sisa
 // elemen kosong dari versi bernomor.
 ok('kartu cara kerja mulai langsung dari judulnya', await p.evaluate(() => {
-  const cards = [...document.querySelectorAll('#cara-kerja .card')];
+  const cards = [...document.querySelectorAll('#how-i-work .card')];
   return cards.length === 4 && cards.every((c) => c.firstElementChild.tagName === 'H3');
 }));
 
@@ -319,7 +345,7 @@ for (const w of [360, 414, 768, 1024, 1440]) {
   const over = await m.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   ok(`tidak scroll horizontal @${w}px`, over <= 0, `overflow ${over}px`);
   if (w === 360) {
-    await m.evaluate(() => document.getElementById('keahlian').scrollIntoView());
+    await m.evaluate(() => document.getElementById('skills').scrollIntoView());
     await m.waitForTimeout(1500);
     const mob = await m.evaluate(() => {
       const li = [...document.querySelectorAll('.badge')];
@@ -345,12 +371,12 @@ for (const w of [360, 414, 768, 1024, 1440]) {
         return btns.length > 0 && btns.every((a) =>
           Math.abs(a.getBoundingClientRect().width - a.parentElement.getBoundingClientRect().width) < 2);
       };
-      const kontak = [...document.querySelectorAll('#kontak .btn')];
+      const kontak = [...document.querySelectorAll('#contact .btn')];
       const baris = {};
       kontak.forEach((a) => { const t = Math.round(a.getBoundingClientRect().top); baris[t] = (baris[t] || 0) + 1; });
       const lebar = kontak.map((a) => Math.round(a.getBoundingClientRect().width));
       return {
-        hero: penuh('#beranda .btn'),
+        hero: penuh('#home .btn'),
         kontakPerBaris: [...new Set(Object.values(baris))],
         jumlahKontak: kontak.length,
         kontakSamaLebar: new Set(lebar).size === 1,
@@ -368,7 +394,26 @@ for (const w of [360, 414, 768, 1024, 1440]) {
     await m.waitForTimeout(400);
     await m.click('#menu-toggle'); await m.waitForTimeout(250);
     ok('menu mobile terbuka @360px', await m.locator('#mobile-menu').isVisible());
-    await m.click('#mobile-menu a[href="#keahlian"]'); await m.waitForTimeout(400);
+    // Section yang sedang dibaca harus ditandai warna, bukan garis bawah.
+    await m.evaluate(() => document.getElementById('skills').scrollIntoView());
+    await m.waitForTimeout(600);
+    const aktif = await m.evaluate(() => {
+      const li = [...document.querySelectorAll('#mobile-menu a')];
+      const a = li.find((x) => x.getAttribute('aria-current') === 'true');
+      if (!a) return null;
+      const cs = getComputedStyle(a);
+      const lain = getComputedStyle(li.find((x) => x !== a));
+      return { teks: a.textContent.trim(), warna: cs.color, warnaLain: lain.color,
+               latar: cs.backgroundColor, border: cs.borderBottomWidth };
+    });
+    ok('ponsel: menu menandai section aktif', !!aktif, 'tidak ada aria-current di menu ponsel');
+    ok('ponsel: warna menu aktif berbeda dari yang lain',
+      !!aktif && aktif.warna !== aktif.warnaLain, JSON.stringify(aktif));
+    ok('ponsel: menu aktif tanpa garis bawah',
+      !!aktif && aktif.border === '0px', aktif && aktif.border);
+    await m.evaluate(() => window.scrollTo(0, 0));
+    await m.waitForTimeout(400);
+    await m.click('#mobile-menu a[href="#skills"]'); await m.waitForTimeout(400);
     ok('menu mobile tertutup setelah klik', !(await m.locator('#mobile-menu').isVisible()));
   }
   await m.close();
@@ -382,7 +427,7 @@ ok('reduced-motion: semua konten langsung tampil',
 await sweepHero(rp);
 await rp.waitForTimeout(250);
 ok('reduced-motion: asap tidak digambar sama sekali', (await smokePixels(rp)) === 0);
-await rp.evaluate(() => document.getElementById('keahlian').scrollIntoView());
+await rp.evaluate(() => document.getElementById('skills').scrollIntoView());
 await rp.waitForTimeout(500);
 ok('reduced-motion: semua teknologi tetap tampil', await rp.evaluate(() =>
   [...document.querySelectorAll('.badge')].every((li) => li.getBoundingClientRect().width > 0)));
@@ -391,14 +436,14 @@ await rp.close();
 const nj = await b.newPage({ javaScriptEnabled: false, viewport: { width: 1280, height: 900 } });
 await nj.goto(url, { waitUntil: 'load' }); await nj.waitForTimeout(300);
 ok('tanpa JS konten tetap tampil',
-  await nj.evaluate(() => parseFloat(getComputedStyle(document.querySelector('#keahlian .reveal')).opacity) > 0.95));
+  await nj.evaluate(() => parseFloat(getComputedStyle(document.querySelector('#skills .reveal')).opacity) > 0.95));
 await nj.close();
 
 // --- anchor saat halaman dimuat & tombol kembali ke atas ---------------------
 const hp = await b.newPage({ viewport: { width: 1440, height: 900 } });
 await hp.goto(url, { waitUntil: 'networkidle' });
 await hp.waitForTimeout(700);
-await hp.click('#nav-links a[href="#cara-kerja"]');
+await hp.click('#nav-links a[href="#how-i-work"]');
 await hp.waitForTimeout(1300);
 await hp.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
 await hp.waitForTimeout(400);
@@ -408,7 +453,7 @@ await hp.waitForTimeout(400);
 await hp.reload({ waitUntil: 'networkidle' });
 await hp.waitForTimeout(1400);
 const landed = await hp.evaluate(() => {
-  const el = document.getElementById('cara-kerja');
+  const el = document.getElementById('how-i-work');
   return { y: Math.round(window.scrollY), top: Math.round(el.getBoundingClientRect().top + window.scrollY) };
 });
 ok('refresh dengan #anchor tetap mendarat di section-nya',
@@ -437,34 +482,71 @@ ok('hash lama dibersihkan setelah ke puncak',
 
 // Anchor bertahan selama berada di section, dan dilepas begitu pembaca
 // kembali ke hero — termasuk lewat scroll biasa, bukan hanya tombol.
-await hp.click('#nav-links a[href="#kontak"]');
+await hp.click('#nav-links a[href="#contact"]');
 await hp.waitForTimeout(1600);
-ok('anchor bertahan saat berada di section', (await hp.evaluate(() => location.hash)) === '#kontak',
+ok('anchor bertahan saat berada di section', (await hp.evaluate(() => location.hash)) === '#contact',
   await hp.evaluate(() => location.hash));
 await hp.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
 await hp.waitForTimeout(900);
 ok('anchor dilepas saat scroll kembali ke hero', (await hp.evaluate(() => location.hash)) === '',
   await hp.evaluate(() => location.hash));
 
-await hp.click('#lang-toggle');
-await hp.waitForTimeout(250);
-ok('label tombol ke atas ikut ganti bahasa', await hp.evaluate(() => {
-  const t = document.getElementById('to-top');
-  return /Kembali ke atas/.test(t.getAttribute('aria-label')) && t.getAttribute('title') === t.getAttribute('aria-label');
-}));
 await hp.close();
 
 // buka langsung dengan anchor, tanpa riwayat sebelumnya
 const dp = await b.newPage({ viewport: { width: 1440, height: 900 } });
-await dp.goto(url + '#keahlian', { waitUntil: 'networkidle' });
+await dp.goto(url + '#skills', { waitUntil: 'networkidle' });
 await dp.waitForTimeout(1300);
 const direct = await dp.evaluate(() => {
-  const el = document.getElementById('keahlian');
+  const el = document.getElementById('skills');
   return { y: Math.round(window.scrollY), top: Math.round(el.getBoundingClientRect().top + window.scrollY) };
 });
 ok('buka langsung dengan #anchor mendarat di section-nya',
   Math.abs(direct.top - direct.y) < 120 && direct.y > 200, JSON.stringify(direct));
 await dp.close();
+
+// --- PWA --------------------------------------------------------------------
+const pwa = await p.evaluate(async () => {
+  const l = document.querySelector('link[rel="manifest"]');
+  if (!l) return { tertaut: false };
+  const m = await fetch(l.href).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  return {
+    tertaut: true,
+    manifest: !!m,
+    display: m && m.display,
+    ikon: m ? m.icons.map((i) => i.sizes) : [],
+    maskable: m ? m.icons.some((i) => (i.purpose || '').includes('maskable')) : false,
+    themeColor: m && m.theme_color,
+  };
+});
+ok('manifest tertaut dan bisa di-parse', pwa.tertaut && pwa.manifest, JSON.stringify(pwa));
+ok('manifest display standalone', pwa.display === 'standalone', String(pwa.display));
+ok('manifest punya ikon 192 & 512',
+  ['192x192', '512x512'].every((u) => pwa.ikon.includes(u)), JSON.stringify(pwa.ikon));
+ok('manifest punya ikon maskable', pwa.maskable);
+
+const ikonOk = await p.evaluate(async () => {
+  const cek = async (u) => {
+    const r = await fetch(u);
+    return r.ok && (r.headers.get('content-type') || '').includes('image');
+  };
+  return (await Promise.all(['/assets/img/app-icon-192.webp', '/assets/img/app-icon-512.webp'].map(cek)))
+    .every(Boolean);
+});
+ok('berkas ikon aplikasi tersaji', ikonOk);
+
+const swOk = await p.evaluate(async () => {
+  const r = await fetch('/sw.js');
+  if (!r.ok) return null;
+  const t = await r.text();
+  return { fetchHandler: t.includes("addEventListener('fetch'"),
+           cacheBerversi: /const CACHE = 'dh-[0-9a-f]{6,}'/.test(t),
+           bersihkanLama: t.includes('caches.delete') };
+});
+ok('service worker tersaji', !!swOk);
+ok('service worker punya handler fetch', !!swOk && swOk.fetchHandler);
+ok('nama cache berversi & cache lama dibersihkan',
+  !!swOk && swOk.cacheBerversi && swOk.bersihkanLama, JSON.stringify(swOk));
 
 // --- aset lokal -------------------------------------------------------------
 const p2 = await b.newPage();

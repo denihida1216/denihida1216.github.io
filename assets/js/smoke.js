@@ -22,7 +22,9 @@
   'use strict';
 
   var canvas = document.getElementById('smoke');
-  var hero = document.getElementById('beranda');
+  // Dicari lewat atribut, bukan id: id-nya berbeda per bahasa
+  // (#home di halaman Inggris, #beranda di halaman Indonesia).
+  var hero = document.querySelector('[data-hero]');
   if (!canvas || !hero || !canvas.getContext) return;
 
   var fine = window.matchMedia('(hover: hover) and (pointer: fine)');

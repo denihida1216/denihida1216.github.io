@@ -1,6 +1,8 @@
 /* ------------------------------------------------------------------ *
  * Portofolio Deni Hidayat — denihida1216.github.io
- * Bilingual (id/en), tema gelap/terang, parallax, reveal-on-scroll.
+ * Tema gelap/terang, navbar, parallax, reveal-on-scroll, tombol ke atas.
+ * Bahasa TIDAK diurus di sini: tiap bahasa punya halamannya sendiri
+ * (/ dan /id/), jadi markup-nya sudah statis dalam bahasa masing-masing.
  * Tanpa dependency selain anime.js lokal; halaman tetap terbaca penuh
  * kalau JS gagal dimuat.
  * ------------------------------------------------------------------ */
@@ -21,178 +23,20 @@
   }
 
   /* =================================================================
-   * 1. Bahasa — teks default di HTML adalah Bahasa Inggris.
+   * 1. Tema gelap / terang
    * ================================================================= */
-  var YEAR = new Date().getFullYear();
-
-  var DICT = {
-    id: {
-      'a11y.skip': 'Lewati ke konten',
-      'nav.about': 'Tentang',
-      'nav.skills': 'Keahlian',
-      'nav.work': 'Cara kerja',
-      'nav.contact': 'Kontak',
-
-      'hero.eyebrow': 'Fullstack Developer & Infrastructure Engineer',
-      'hero.greet': 'Halo, saya',
-      'hero.hook': 'Saya membangun aplikasi web dan mobile dari baris kode pertama sampai berjalan aman dan stabil di server produksi.',
-      'hero.cta1': 'Hubungi saya',
-      'hero.cta2': 'Lihat apa yang saya kerjakan',
-      'hero.photoAlt': 'Foto Deni Hidayat',
-      'hero.tag1': 'Web & Mobile',
-      'hero.tag2': 'Server & Docker',
-      'hero.tag3': 'Keamanan aplikasi',
-
-      'about.eyebrow': 'Tentang',
-      'about.title': 'Satu pekerjaan yang utuh',
-      'about.p1': 'Saya seorang developer yang senang menyelesaikan masalah dari ujung ke ujung. Menulis backend dan frontend, merancang database, lalu memastikan semuanya ter-deploy dengan rapi, aman, dan tetap hidup saat trafik datang — bagi saya itu satu pekerjaan yang utuh, bukan tiga pekerjaan berbeda.',
-      'about.p2': 'Saya terbiasa bekerja dengan tenang di bawah tekanan: menangani insiden produksi, mengejar deadline ketat, dan mengambil keputusan teknis yang jelas saat waktu terbatas. Yang saya jaga selalu sama — komunikasi yang jujur dan hasil yang bisa diandalkan.',
-      'about.p3': 'Kalau Anda mencari orang yang bisa dipercaya memegang aplikasi dari kode sampai server, kemungkinan besar kita cocok.',
-
-      'skills.eyebrow': 'Keahlian',
-      'skills.title': 'Tiga hal yang saya kerjakan',
-      'skills.sub': 'Fullstack development, server & infrastructure, dan keamanan aplikasi — kombinasi ketiganya yang membuat saya bisa memegang sebuah aplikasi dari repositori kosong sampai berjalan di produksi.',
-      'skills.techAria': 'Teknologi yang saya pakai',
-
-      'work.eyebrow': 'Cara kerja',
-      'work.title': 'Cara saya bekerja',
-      'work.sub': 'Empat hal yang bisa Anda harapkan dari saya, di proyek apa pun.',
-      'work.i1.title': 'Komunikasi yang jelas',
-      'work.i1.desc': 'Kabar baik maupun buruk saya sampaikan lebih awal, bukan di menit terakhir.',
-      'work.i2.title': 'Tenang di bawah tekanan',
-      'work.i2.desc': 'Insiden produksi dan deadline ketat saya hadapi dengan langkah yang terukur, bukan panik.',
-      'work.i3.title': 'Tuntas dari ujung ke ujung',
-      'work.i3.desc': 'Selesai bagi saya berarti berjalan di produksi — aman, terpantau, dan terdokumentasi.',
-      'work.i4.title': 'Aman sejak awal',
-      'work.i4.desc': 'Keamanan saya pikirkan sejak desain, bukan setelah ada masalah.',
-
-      'contact.eyebrow': 'Kontak',
-      'contact.title': 'Mari bekerja sama',
-      'contact.text': 'Punya proyek atau posisi yang membutuhkan orang yang bisa diandalkan? Ceritakan kebutuhan Anda — saya balas secepat yang saya bisa.',
-      'contact.note': 'Biasanya saya balas dalam 24 jam.',
-
-      'footer.text': '© ' + YEAR + ' Deni Hidayat',
-
-      'ui.langAria': 'Ganti bahasa ke Inggris',
-      'ui.themeDark': 'Ganti ke tema terang',
-      'ui.themeLight': 'Ganti ke tema gelap',
-      'ui.toTop': 'Kembali ke atas',
-      'ui.menuOpen': 'Buka menu',
-      'ui.menuClose': 'Tutup menu',
-      'ui.metaTitle': 'Deni Hidayat — Fullstack Developer & Infrastructure Engineer',
-      'ui.metaDesc': 'Portofolio Deni Hidayat — fullstack developer (web & mobile) yang juga menangani server, Docker, dan keamanan aplikasi. Dari kode sampai produksi.'
-    },
-
-    en: {
-      'a11y.skip': 'Skip to content',
-      'nav.about': 'About',
-      'nav.skills': 'Skills',
-      'nav.work': 'How I work',
-      'nav.contact': 'Contact',
-
-      'hero.eyebrow': 'Fullstack Developer & Infrastructure Engineer',
-      'hero.greet': "Hi, I'm",
-      'hero.hook': 'I build web and mobile applications — from the first line of code to a secure, stable production server.',
-      'hero.cta1': 'Contact me',
-      'hero.cta2': 'See what I do',
-      'hero.photoAlt': 'Photo of Deni Hidayat',
-      'hero.tag1': 'Web & Mobile',
-      'hero.tag2': 'Servers & Docker',
-      'hero.tag3': 'Application security',
-
-      'about.eyebrow': 'About',
-      'about.title': 'One whole job',
-      'about.p1': "I'm a developer who enjoys solving problems end to end. Writing the backend and frontend, designing the database, then making sure everything is deployed cleanly, securely, and stays up when traffic arrives — to me that's one whole job, not three separate ones.",
-      'about.p2': "I'm used to working calmly under pressure: handling production incidents, meeting tight deadlines, and making clear technical decisions when time is short. What I keep constant is honest communication and dependable results.",
-      'about.p3': "If you're looking for someone you can trust with an application from code to server, there's a good chance we'll work well together.",
-
-      'skills.eyebrow': 'Skills',
-      'skills.title': 'Three things I do',
-      'skills.sub': 'Fullstack development, servers & infrastructure, and application security — the combination of all three is what lets me carry an application from an empty repository to running in production.',
-      'skills.techAria': 'Technologies I work with',
-
-      'work.eyebrow': 'How I work',
-      'work.title': 'How I work',
-      'work.sub': 'Four things you can expect from me, on any project.',
-      'work.i1.title': 'Clear communication',
-      'work.i1.desc': 'Good news or bad, you hear it from me early — not at the last minute.',
-      'work.i2.title': 'Calm under pressure',
-      'work.i2.desc': 'I meet production incidents and tight deadlines with measured steps, not panic.',
-      'work.i3.title': 'Ownership, end to end',
-      'work.i3.desc': 'Done means running in production — secure, monitored, and documented.',
-      'work.i4.title': 'Secure by default',
-      'work.i4.desc': 'I think about security at design time, not after something breaks.',
-
-      'contact.eyebrow': 'Contact',
-      'contact.title': "Let's work together",
-      'contact.text': "Have a project or a role that needs someone dependable? Tell me what you need — I'll reply as fast as I can.",
-      'contact.note': 'I usually reply within 24 hours.',
-
-      'footer.text': '© ' + YEAR + ' Deni Hidayat',
-
-      'ui.langAria': 'Switch language to Indonesian',
-      'ui.themeDark': 'Switch to light theme',
-      'ui.themeLight': 'Switch to dark theme',
-      'ui.toTop': 'Back to top',
-      'ui.menuOpen': 'Open menu',
-      'ui.menuClose': 'Close menu',
-      'ui.metaTitle': 'Deni Hidayat — Fullstack Developer & Infrastructure Engineer',
-      'ui.metaDesc': 'Portfolio of Deni Hidayat — a fullstack developer (web & mobile) who also handles servers, Docker, and application security. From code to production.'
-    }
-  };
-
-  var langToggle = document.getElementById('lang-toggle');
-  var langLabel = document.getElementById('lang-label');
   var themeToggle = document.getElementById('theme-toggle');
-  var metaDesc = document.querySelector('meta[name="description"]');
-
-  function currentLang() {
-    return root.getAttribute('lang') === 'id' ? 'id' : 'en';
-  }
-
-  function applyLang(lang) {
-    var dict = DICT[lang] || DICT.id;
-    root.setAttribute('lang', lang);
-
-    document.querySelectorAll('[data-i18n]').forEach(function (el) {
-      var text = dict[el.getAttribute('data-i18n')];
-      if (typeof text !== 'string') return;
-      // data-i18n-attr="alt" (atau "aria-label,title") mengisi atribut,
-      // bukan isi elemen — penting untuk tombol yang isinya ikon SVG.
-      var attr = el.getAttribute('data-i18n-attr');
-      if (attr) attr.split(',').forEach(function (a) { el.setAttribute(a.trim(), text); });
-      else el.textContent = text;
-    });
-
-    document.title = dict['ui.metaTitle'];
-    if (metaDesc) metaDesc.setAttribute('content', dict['ui.metaDesc']);
-    if (langLabel) langLabel.textContent = lang === 'en' ? 'ID' : 'EN';
-    if (langToggle) langToggle.setAttribute('aria-label', dict['ui.langAria']);
-    syncThemeLabel();
-    syncMenuLabel();
-  }
-
-  if (langToggle) {
-    langToggle.addEventListener('click', function () {
-      var next = currentLang() === 'en' ? 'id' : 'en';
-      store('dh-lang', next);
-      applyLang(next);
-    });
-  }
-
-  /* =================================================================
-   * 2. Tema gelap / terang
-   * ================================================================= */
   var iconSun = document.getElementById('icon-sun');
   var iconMoon = document.getElementById('icon-moon');
 
   function syncThemeLabel() {
     var dark = root.getAttribute('data-theme') === 'dark';
-    var dict = DICT[currentLang()];
     if (iconSun) iconSun.classList.toggle('hidden', !dark);
     if (iconMoon) iconMoon.classList.toggle('hidden', dark);
     if (themeToggle) {
-      themeToggle.setAttribute('aria-label', dark ? dict['ui.themeDark'] : dict['ui.themeLight']);
+      // Label dua bahasa disimpan di markup; JS hanya memilih yang sesuai.
+      var label = themeToggle.getAttribute(dark ? 'data-label-dark' : 'data-label-light');
+      if (label) themeToggle.setAttribute('aria-label', label);
     }
   }
 
@@ -206,7 +50,7 @@
   }
 
   /* =================================================================
-   * 3. Navbar: latar saat scroll, menu mobile, penanda section aktif
+   * 2. Navbar: latar saat scroll, menu mobile, penanda section aktif
    * ================================================================= */
   var navShell = document.getElementById('nav-shell');
   var menuToggle = document.getElementById('menu-toggle');
@@ -215,7 +59,8 @@
   function syncMenuLabel() {
     if (!menuToggle) return;
     var open = menuToggle.getAttribute('aria-expanded') === 'true';
-    menuToggle.setAttribute('aria-label', DICT[currentLang()][open ? 'ui.menuClose' : 'ui.menuOpen']);
+    var label = menuToggle.getAttribute(open ? 'data-label-close' : 'data-label-open');
+    if (label) menuToggle.setAttribute('aria-label', label);
   }
 
   if (menuToggle && mobileMenu) {
@@ -262,11 +107,11 @@
   }
 
   /* -------------------------------------------------------------------
-   * Buka halaman dengan anchor (mis. .../#cara-kerja).
+   * Buka halaman dengan anchor (mis. .../#how-i-work).
    *
    * Saat refresh, browser memulihkan posisi scroll sebelumnya dan itu
    * MENGALAHKAN anchor di URL — halaman berhenti di tempat lama meski
-   * URL-nya #cara-kerja. Jadi kalau anchor-nya valid, ambil alih:
+   * URL-nya #how-i-work. Jadi kalau anchor-nya valid, ambil alih:
    * matikan pemulihan otomatis lalu lompat sendiri ke target.
    * ------------------------------------------------------------------- */
   var userScrolled = false;
@@ -299,11 +144,16 @@
     navShell.classList.toggle('border-transparent', !solid);
   }
 
-  var sections = ['tentang', 'keahlian', 'cara-kerja', 'kontak'].map(function (id) {
-    return document.getElementById(id);
-  }).filter(Boolean);
+  // Diturunkan dari navbar, bukan daftar id yang ditulis tangan: anchor
+  // berbeda antara halaman Inggris (#about) dan Indonesia (#tentang).
+  var sections = Array.prototype.slice.call(document.querySelectorAll('#nav-links a'))
+    .map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); })
+    .filter(Boolean);
 
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll('#nav-links a'));
+  // Menu ponsel ikut ditandai: kalau tidak, membuka menu sambil berada
+  // di suatu section tidak menunjukkan sedang di mana.
+  var navLinks = Array.prototype.slice.call(
+    document.querySelectorAll('#nav-links a, #mobile-menu a'));
   var hashTimer = 0;
   var currentActive = '';
 
@@ -336,7 +186,7 @@
   }
 
   /* =================================================================
-   * 4. Parallax — scroll & kursor, digabung dalam satu loop rAF.
+   * 3. Parallax — scroll & kursor, digabung dalam satu loop rAF.
    *
    * Pergeseran dihitung dari posisi elemen terhadap tengah layar, bukan
    * dari scrollY absolut: offset = 0 tepat saat elemen berada di tengah
@@ -428,7 +278,7 @@
   }
 
   /* =================================================================
-   * 5. Gambar: cegah klik kanan "Open image" dan seret ke tab lain.
+   * 4. Gambar: cegah klik kanan "Open image" dan seret ke tab lain.
    *
    * Ini penghalang, bukan pengaman — berkasnya tetap bisa diambil lewat
    * DevTools atau URL langsung. Tujuannya sekadar menghindari orang
@@ -443,7 +293,7 @@
   });
 
   /* =================================================================
-   * 6. Animasi masuk & reveal-on-scroll (anime.js)
+   * 5. Animasi masuk & reveal-on-scroll (anime.js)
    *
    * Elemen tidak "sekali tampil lalu selesai": begitu keluar viewport ia
    * di-reset ke posisi awal sesuai arah keluarnya, jadi animasinya main
@@ -514,10 +364,25 @@
   });
 
   /* =================================================================
+   * 6. Service worker — halaman tetap bisa dibuka saat offline.
+   *
+   * Didaftarkan setelah `load` supaya tidak berebut bandwidth dengan
+   * render pertama. Gagal mendaftar bukan masalah: situsnya tetap jalan
+   * normal tanpa service worker.
+   * ================================================================= */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () {
+        /* offline, http, atau browser menolak — abaikan */
+      });
+    });
+  }
+
+  /* =================================================================
    * 7. Jalankan
    * ================================================================= */
-  applyLang(store('dh-lang') === 'id' ? 'id' : 'en');
   syncThemeLabel();
+  syncMenuLabel();
   measureLayers();
   jumpToHash();
   onScroll();

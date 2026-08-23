@@ -147,8 +147,20 @@
     @apply bg-bg-soft text-text;
   }
 
+  /* Section yang sedang dibaca ditandai warna aksen — bukan garis bawah
+     seperti di navbar desktop, karena di daftar vertikal garis bawah
+     terbaca sebagai pemisah, bukan penanda. */
+  .menu-link[aria-current='true'] {
+    @apply text-accent;
+    background-color: rgb(var(--accent) / 0.1);
+  }
+
   .lede {
-    @apply text-balance text-muted;
+    /* text-balance hanya dari `sm` ke atas. Di layar sempit ia menyamakan
+       panjang tiap baris sampai ~75% lebar kolom, sehingga paragraf
+       terlihat tidak penuh padahal kotaknya selebar kolom. */
+    @apply text-muted;
+    text-wrap: pretty;
     font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   }
 

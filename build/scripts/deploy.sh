@@ -77,9 +77,11 @@ done
 
 info "Mengecek berkas yang benar-benar tersaji"
 RUSAK=0
-for f in "" assets/css/site.css assets/js/app.js assets/js/smoke.js \
+for f in "" id/ assets/css/site.css assets/js/app.js assets/js/smoke.js \
          assets/fonts/Inter-var.woff2 assets/img/profil.webp \
-         assets/img/icons/proxmox.webp sitemap.xml robots.txt; do
+         assets/img/icons/proxmox.webp assets/img/og-cover.webp \
+         assets/img/og-cover-id.webp assets/img/app-icon-512.webp \
+         manifest.webmanifest sw.js sitemap.xml robots.txt; do
   KODE="$(curl -s -o /dev/null -w '%{http_code}' "$SITUS/$f")"
   printf '   %s  /%s\n' "$KODE" "$f"
   [ "$KODE" = "200" ] || RUSAK=1
